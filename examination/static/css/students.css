@@ -1,0 +1,64 @@
+/*add*/
+@import url('style.css');
+
+.addManuallyStudent>form>div{
+        display: flex;
+        flex-direction:row ;
+        flex-wrap: wrap;
+        margin-block:10px ;
+
+        
+    }
+.addManuallyStudent>form>div>div{
+        display: flex;
+        flex-direction: column;
+        margin-inline: 15px;
+        flex-basis: 0;
+        flex-grow: 1;
+    }
+select{
+        padding-block: 2px;
+    }
+.Stnbutton{
+        flex: 1;
+        margin-right: 0;
+        margin-left:15px ;
+        background-color: var(--bs-one);
+        color: white;
+        border-radius: 3px;
+        border: none;
+        transition: all 0.3s;
+
+    }
+.Stnbutton:hover{
+        background-color: var(--bs-border);
+        transition: all 0.3s;
+    }
+form>div>div>input{
+        border-radius: 3px;
+        background-color: rgba(255, 255, 255, 0.548);
+        backdrop-filter: blur(10px);
+        border: 0.5px solid gray;
+}
+h4{
+    width: max-content;
+    border-bottom: 3px solid var(--bs-prim);
+    padding: 5px;
+}
+.addFileStudent>div>form{
+
+    display:flex;
+    margin: 20px; 
+    flex-wrap: wrap;
+}
+.addFileStudent>div>form>*{
+    min-width: 200px;
+    width: 200px;
+    margin: 5px;
+}
+.addFileStudent>div>form>input{
+    flex: 1; 
+    background-color: white; 
+    border-radius:3px ; 
+    border:1px solid gray 
+}

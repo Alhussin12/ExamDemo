@@ -1,0 +1,138 @@
+@import url("style.css");
+
+/* Global For Step */
+.multi-form-countener{
+    /* color: black!important; */
+    display: grid;
+    place-items: center;
+    height: 90vh;
+    color: white;
+}
+.input-group{
+    margin: 20px 0;
+}
+.input-group>input{
+    display: block;
+    width: 100%;
+    padding: 3px;
+    border-radius: 3px!important;
+    border: 2px solid var(--bs-Gray);
+}
+.input-group>label{
+    display: block;
+}
+.multi-form-countener>.multi-form{
+    /* width: 500px; */
+    max-width: 450px;
+    max-height: 550px;
+    background-color: var(--bs-prim);
+    border:1px solid var(--bs-Gray);
+    border-radius: 5px;
+    padding:15px 20px;
+}
+
+.width-50{
+    width: 50%;
+}
+.ml-auto{
+    margin-left: auto;
+}
+.my-text-center{
+    text-align: center;
+}
+.form-step>div>button.step-btn:hover{
+    box-shadow: 0 0 0 2px white , 0 0 0 3px blue ;
+}
+.btn-group{
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+    gap: 2px;
+    margin-top: auto;
+}
+.form-step>div>button.step-btn{
+    width: 100%;
+    color: white;
+    display: block;    
+    border:1px solid var(--bs-Gray);
+    background-color: var(--bs-border);
+    border-radius: 3px;
+    text-align: center;
+    cursor: pointer;
+    transition: box-shadow 0.3s;
+    padding: 3px;
+    
+}
+.form-step{
+    display: none;
+
+}
+.form-step-active{
+    display: block;
+    transform-origin: top;
+    animation: animate 0.5s;
+}
+@keyframes animate {
+    from{
+        transform: scale(1,0);
+        opacity: 0;
+    }
+    to{
+        transform: scale(1,1);
+        opacity: 1;
+    }
+}
+.step-1{
+    margin-top: 30px;
+}
+/* pro bar */
+.prog-bar{
+    position: relative;
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+    counter-reset: step;
+
+}
+.prog-bar::before,.progress{
+    content: '';
+    height: 10px;
+    width: 98%;
+    position: absolute;
+    background-color: white;
+    margin-left: 1px;
+    z-index: 0;
+    top: 50%;
+    transform: translateY(-50%);
+}
+.progress{
+    background-color: var(--bs-border);
+    width: 0%;
+    transition: all 0.5s;
+}
+.prog-step{
+    z-index: 1;
+    width: 50px;
+    height: 50px;
+    background-color: white;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+.prog-step::before{
+    counter-increment: step;
+    color: black;
+    content: counter(step);
+}
+.prog-step::after{
+    content: attr(data-title);
+    position:absolute ;
+    top: calc(100%);
+    font-size: 8px;
+}
+.prog-step-active{
+    background-color: #3282B8;
+    transition: background-color 0.6s;
+
+}
