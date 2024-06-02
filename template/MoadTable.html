@@ -1,0 +1,410 @@
+{% extends 'main.html' %}
+{% load static %}
+{% block style %}
+<style>
+  h4{
+    border-bottom: 3px solid var(--bs-one);
+    padding-bottom: 4px;
+    width: max-content;
+  }
+    .numberStat{
+      display: flex;
+      width: 100%;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 10px;
+      
+    }
+    p,h5{margin: 0;}
+    .numberStat>div{
+      flex: 1;
+      min-width: 90px;
+      width: 90px;
+      min-height: 100px;
+      height: 100px;
+      background-color: rgba(255, 255, 255, 0.548);
+      border: 1px solid var(--bs-one);
+      border-radius: 3px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+  
+    }
+    .border{
+      border: 1px solid var(--bs-one)!important;
+      border-radius: 3px;
+  
+    }
+    .numberStat>div>h5{
+      font: bolder;
+      font-size: 1.4vw;
+    }
+    .numberStat>div>p , .numberStat>div>a , .numberStat>div>a:hover{
+      color: var(--bs-one);
+  
+    }
+    
+    .legge>div{
+      display: flex;
+      justify-content: space-between;
+      background-color: var(--bs-border);
+      align-items: center;
+      padding: 5px;
+      border-radius: 3px;
+    }
+    
+</style>
+{% endblock %}
+{% block scripts %}
+{% endblock %}
+
+
+
+{% block con %}
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+      <li class="breadcrumb-item "><a style="color:black" href="{% url 'et' %}">ExamProgram</a></li>
+      <li class="breadcrumb-item" style="color:var(--bs-one)" aria-current="page">{{duration}}</li>
+  </ol>
+</nav>
+
+<h4>In Progress Statistic</h4>
+
+<div class="numberStat">
+
+  <div>
+    <h5>Courses</h5>
+    <p>{{stat.allCoursesInExamProgram}}</p>
+  </div>
+  <div>
+    <h5>Auto/Written</h5>
+    <p>{{stat.auto}}/{{stat.written}}</p>
+  </div>
+  <div>
+    <h5>Corrected</h5>
+    <p>{{stat.corrected}}</p>
+  </div>
+  <div>
+    <h5>Submited</h5>
+    <p>{{stat.submited}}</p>
+  </div>
+  <div>
+    <h5 style="text-align: center;"><span>Corrected Prog</span></h5>
+    <p>{{stat.correctedProg}}%</p>
+  </div>
+  <div>
+    <h5 style="text-align: center;">ATT Progress</h5>
+    <p>{{stat.submitedProg}}%</p>
+  </div>
+</div>
+<div class="examinationTables" style="margin-bottom: 5px;">
+  <div style="display: flex; flex-wrap:wrap; gap:10px" >
+      <div style="height: 250px; padding:10px; min-width:200px; flex:1" class="border">
+        <canvas id="myChart1" style="width:100%"></canvas>
+      </div>
+      <div style="height: 250px; padding:10px;min-width:200px; flex:1" class="border">
+        <canvas id="myChart2" style="width:100%"></canvas>
+      </div>
+      <div style="gap: 10px; height: 250px; padding:10px;min-width:200px; flex:1; display:flex ; flex-direction: column; align-items: center; justify-content: center;" class="border legge" >
+        <div style="width: 100%;">
+          <span>
+            <svg width="21px" height="21px" viewBox="-8.16 -8.16 64.32 64.32" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"><rect x="-8.16" y="-8.16" width="64.32" height="64.32" rx="32.16" fill="#ff0000" strokewidth="0"></rect></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M10 29V26H13V29H10Z" fill="#333333"></path> <path fill-rule="evenodd" clip-rule="evenodd" d="M32 44H8C5.79086 44 4 42.2091 4 40V8C4 5.79086 5.79086 4 8 4H32C34.2091 4 36 5.79086 36 8V40C36 42.2091 34.2091 44 32 44ZM18 13C18 12.4477 18.4477 12 19 12H31C31.5523 12 32 12.4477 32 13C32 13.5523 31.5523 14 31 14H19C18.4477 14 18 13.5523 18 13ZM19 16C18.4477 16 18 16.4477 18 17C18 17.5523 18.4477 18 19 18H31C31.5523 18 32 17.5523 32 17C32 16.4477 31.5523 16 31 16H19ZM15.7071 12.2929C16.0976 12.6834 16.0976 13.3166 15.7071 13.7071L11 18.4142L8.29289 15.7071C7.90237 15.3166 7.90237 14.6834 8.29289 14.2929C8.68342 13.9024 9.31658 13.9024 9.70711 14.2929L11 15.5858L14.2929 12.2929C14.6834 11.9024 15.3166 11.9024 15.7071 12.2929ZM19 24C18.4477 24 18 24.4477 18 25C18 25.5523 18.4477 26 19 26H31C31.5523 26 32 25.5523 32 25C32 24.4477 31.5523 24 31 24H19ZM18 29C18 28.4477 18.4477 28 19 28H31C31.5523 28 32 28.4477 32 29C32 29.5523 31.5523 30 31 30H19C18.4477 30 18 29.5523 18 29ZM14 24H9C8.44772 24 8 24.4477 8 25V30C8 30.5523 8.44772 31 9 31H14C14.5523 31 15 30.5523 15 30V25C15 24.4477 14.5523 24 14 24Z" fill="#333333"></path> <path fill-rule="evenodd" clip-rule="evenodd" d="M44 40L41 44L38 40V22H44V40Z" fill="#333333"></path> <path fill-rule="evenodd" clip-rule="evenodd" d="M40 15H42C43.1046 15 44 15.8954 44 17V21H38V17C38 15.8954 38.8954 15 40 15Z" fill="#333333"></path> </g></svg>
+          </span>
+          <span>Correcten_Scale</span>
+        </div>
+        <div style="width: 100%;">
+          <span ><svg width="21px" height="21px" viewBox="-10.56 -10.56 53.12 53.12" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns" fill="#000000"><g id="SVGRepo_bgCarrier" stroke-width="0"><rect x="-10.56" y="-10.56" width="53.12" height="53.12" rx="26.56" fill="#7ed0ec" strokewidth="0"></rect></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <title>note-text</title> <desc>Created with Sketch Beta.</desc> <defs> </defs> <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage"> <g id="Icon-Set" sketch:type="MSLayerGroup" transform="translate(-308.000000, -99.000000)" fill="#ffffff"> <path d="M332,107 L316,107 C315.447,107 315,107.448 315,108 C315,108.553 315.447,109 316,109 L332,109 C332.553,109 333,108.553 333,108 C333,107.448 332.553,107 332,107 L332,107 Z M338,127 C338,128.099 336.914,129.012 335.817,129.012 L311.974,129.012 C310.877,129.012 309.987,128.122 309.987,127.023 L309.987,103.165 C309.987,102.066 310.902,101 312,101 L336,101 C337.098,101 338,101.902 338,103 L338,127 L338,127 Z M336,99 L312,99 C309.806,99 308,100.969 308,103.165 L308,127.023 C308,129.22 309.779,131 311.974,131 L335.817,131 C338.012,131 340,129.196 340,127 L340,103 C340,100.804 338.194,99 336,99 L336,99 Z M332,119 L316,119 C315.447,119 315,119.448 315,120 C315,120.553 315.447,121 316,121 L332,121 C332.553,121 333,120.553 333,120 C333,119.448 332.553,119 332,119 L332,119 Z M332,113 L316,113 C315.447,113 315,113.448 315,114 C315,114.553 315.447,115 316,115 L332,115 C332.553,115 333,114.553 333,114 C333,113.448 332.553,113 332,113 L332,113 Z" id="note-text" sketch:type="MSShapeGroup"> </path> </g> </g> </g></svg></span>
+          <span>
+            Question_submited
+          </span>
+        </div>
+        <div style="width: 100%;">
+          <span>
+            <svg width="21px" height="21px" viewBox="-11.7 -11.7 140.40 140.40" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="#000000" transform="rotate(0)"><g id="SVGRepo_bgCarrier" stroke-width="0"><rect x="-11.7" y="-11.7" width="140.40" height="140.40" rx="70.2" fill="#" strokewidth="0"></rect></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <title></title> <desc></desc> <defs></defs> <g fill="none" fill-rule="evenodd" id="Page-1" stroke="none" stroke-width="1"> <g fill-rule="nonzero" id="correct"> <path d="M34.5,55.1 C32.9,53.5 30.3,53.5 28.7,55.1 C27.1,56.7 27.1,59.3 28.7,60.9 L47.6,79.8 C48.4,80.6 49.4,81 50.5,81 C50.6,81 50.6,81 50.7,81 C51.8,80.9 52.9,80.4 53.7,79.5 L101,22.8 C102.4,21.1 102.2,18.5 100.5,17 C98.8,15.6 96.2,15.8 94.7,17.5 L50.2,70.8 L34.5,55.1 Z" fill="#17AB13" id="Shape"></path> <path d="M89.1,9.3 C66.1,-5.1 36.6,-1.7 17.4,17.5 C-5.2,40.1 -5.2,77 17.4,99.6 C28.7,110.9 43.6,116.6 58.4,116.6 C73.2,116.6 88.1,110.9 99.4,99.6 C118.7,80.3 122,50.7 107.5,27.7 C106.3,25.8 103.8,25.2 101.9,26.4 C100,27.6 99.4,30.1 100.6,32 C113.1,51.8 110.2,77.2 93.6,93.8 C74.2,113.2 42.5,113.2 23.1,93.8 C3.7,74.4 3.7,42.7 23.1,23.3 C39.7,6.8 65,3.9 84.8,16.2 C86.7,17.4 89.2,16.8 90.4,14.9 C91.6,13 91,10.5 89.1,9.3 Z" fill="#4A4" id="Shape"></path> </g> </g> </g></svg>
+          </span>
+          <span>Corrected</span>
+        </div>
+        <div style="width: 100%;">
+          <span>
+            <svg width="21px" height="21px" viewBox="-11.7 -11.7 140.40 140.40" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="#000000"><g id="SVGRepo_bgCarrier" stroke-width="0"><rect x="-11.7" y="-11.7" width="140.40" height="140.40" rx="70.2" fill="#19376D" strokewidth="0"></rect></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <title></title> <desc></desc> <defs></defs> <g fill="none" fill-rule="evenodd" id="Page-1" stroke="none" stroke-width="1"> <g fill-rule="nonzero" id="clock"> <path d="M58.5,116.3 C90.5,116.3 116.4,90.3 116.4,58.4 C116.4,26.4 90.4,0.5 58.5,0.5 C26.6,0.5 0.6,26.4 0.6,58.4 C0.6,90.3 26.5,116.3 58.5,116.3 Z M58.5,8.6 C86,8.6 108.3,30.9 108.3,58.4 C108.3,85.9 86,108.2 58.5,108.2 C31,108.2 8.7,85.8 8.7,58.4 C8.7,30.9 31,8.6 58.5,8.6 Z" fill="#fff" id="Shape"></path> <path d="M55.8,65.2 L75.1,65.2 C77.4,65.2 79.2,63.4 79.2,61.1 C79.2,58.8 77.4,57 75.1,57 L59.9,57 L59.9,33.2 C59.9,30.9 58.1,29.1 55.8,29.1 C53.5,29.1 51.7,30.9 51.7,33.2 L51.7,61.1 C51.7,63.4 53.5,65.2 55.8,65.2 Z" fill="#ffffffff" id="Shape"></path> </g> </g> </g></svg>
+          </span>
+          <span>
+            submited
+          </span>
+        </div>
+      </div>
+  </div>
+</div>
+
+<h4 style="border-bottom: 3px solid var(--bs-one); padding-bottom:3px ; width: max-content;">
+  ExamProgram
+</h4>
+<div class="addStudent examinationTables " style="zoom: 97%;">
+  <div class="tableOfDone">
+  <table>
+      <thead>
+      <tr>
+          <th>Date</th>
+          <th>Year 1</th>
+          <th>Year 2</th>
+          <th>Year 3</th>
+          <th>Year 4</th>
+          <th>Year 5</th>
+      </tr>
+      </thead>
+      <tbody>
+      {% for item in c %}
+          <tr>
+          <td style="
+          {% if item.date == stat.now %}
+          background-color: yellowgreen;
+          {% endif %}
+          " >{{ item.date.month }}/{{ item.date.day }}/{{ item.date.year }}</td>
+          <td>
+            {% for subject in item.course.all %}
+                {% if subject.year == '1' %}
+                    {% for subjects in b %}
+                        {% if subjects.course.id is subject.id%}
+                              
+                              {{ subject.name }} 
+
+                              {% if subjects.is_submited %}
+                                <svg width="21px" height="21px" viewBox="-11.7 -11.7 140.40 140.40" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="#000000"><g id="SVGRepo_bgCarrier" stroke-width="0"><rect x="-11.7" y="-11.7" width="140.40" height="140.40" rx="70.2" fill="#19376D" strokewidth="0"></rect></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <title></title> <desc></desc> <defs></defs> <g fill="none" fill-rule="evenodd" id="Page-1" stroke="none" stroke-width="1"> <g fill-rule="nonzero" id="clock"> <path d="M58.5,116.3 C90.5,116.3 116.4,90.3 116.4,58.4 C116.4,26.4 90.4,0.5 58.5,0.5 C26.6,0.5 0.6,26.4 0.6,58.4 C0.6,90.3 26.5,116.3 58.5,116.3 Z M58.5,8.6 C86,8.6 108.3,30.9 108.3,58.4 C108.3,85.9 86,108.2 58.5,108.2 C31,108.2 8.7,85.8 8.7,58.4 C8.7,30.9 31,8.6 58.5,8.6 Z" fill="#fff" id="Shape"></path> <path d="M55.8,65.2 L75.1,65.2 C77.4,65.2 79.2,63.4 79.2,61.1 C79.2,58.8 77.4,57 75.1,57 L59.9,57 L59.9,33.2 C59.9,30.9 58.1,29.1 55.8,29.1 C53.5,29.1 51.7,30.9 51.7,33.2 L51.7,61.1 C51.7,63.4 53.5,65.2 55.8,65.2 Z" fill="#ffffffff" id="Shape"></path> </g> </g> </g></svg>
+                              
+                              {% endif %}
+
+                              {% if subjects.is_corrected %}
+                              <svg width="21px" height="21px" viewBox="-11.7 -11.7 140.40 140.40" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="#000000" transform="rotate(0)"><g id="SVGRepo_bgCarrier" stroke-width="0"><rect x="-11.7" y="-11.7" width="140.40" height="140.40" rx="70.2" fill="#" strokewidth="0"></rect></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <title></title> <desc></desc> <defs></defs> <g fill="none" fill-rule="evenodd" id="Page-1" stroke="none" stroke-width="1"> <g fill-rule="nonzero" id="correct"> <path d="M34.5,55.1 C32.9,53.5 30.3,53.5 28.7,55.1 C27.1,56.7 27.1,59.3 28.7,60.9 L47.6,79.8 C48.4,80.6 49.4,81 50.5,81 C50.6,81 50.6,81 50.7,81 C51.8,80.9 52.9,80.4 53.7,79.5 L101,22.8 C102.4,21.1 102.2,18.5 100.5,17 C98.8,15.6 96.2,15.8 94.7,17.5 L50.2,70.8 L34.5,55.1 Z" fill="#17AB13" id="Shape"></path> <path d="M89.1,9.3 C66.1,-5.1 36.6,-1.7 17.4,17.5 C-5.2,40.1 -5.2,77 17.4,99.6 C28.7,110.9 43.6,116.6 58.4,116.6 C73.2,116.6 88.1,110.9 99.4,99.6 C118.7,80.3 122,50.7 107.5,27.7 C106.3,25.8 103.8,25.2 101.9,26.4 C100,27.6 99.4,30.1 100.6,32 C113.1,51.8 110.2,77.2 93.6,93.8 C74.2,113.2 42.5,113.2 23.1,93.8 C3.7,74.4 3.7,42.7 23.1,23.3 C39.7,6.8 65,3.9 84.8,16.2 C86.7,17.4 89.2,16.8 90.4,14.9 C91.6,13 91,10.5 89.1,9.3 Z" fill="#4A4" id="Shape"></path> </g> </g> </g></svg>
+
+                              {% endif %}
+                              {% if subjects.is_Correcten_Scale_submited %}
+                              <svg width="21px" height="21px" viewBox="-8.16 -8.16 64.32 64.32" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"><rect x="-8.16" y="-8.16" width="64.32" height="64.32" rx="32.16" fill="#ff0000" strokewidth="0"></rect></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M10 29V26H13V29H10Z" fill="#333333"></path> <path fill-rule="evenodd" clip-rule="evenodd" d="M32 44H8C5.79086 44 4 42.2091 4 40V8C4 5.79086 5.79086 4 8 4H32C34.2091 4 36 5.79086 36 8V40C36 42.2091 34.2091 44 32 44ZM18 13C18 12.4477 18.4477 12 19 12H31C31.5523 12 32 12.4477 32 13C32 13.5523 31.5523 14 31 14H19C18.4477 14 18 13.5523 18 13ZM19 16C18.4477 16 18 16.4477 18 17C18 17.5523 18.4477 18 19 18H31C31.5523 18 32 17.5523 32 17C32 16.4477 31.5523 16 31 16H19ZM15.7071 12.2929C16.0976 12.6834 16.0976 13.3166 15.7071 13.7071L11 18.4142L8.29289 15.7071C7.90237 15.3166 7.90237 14.6834 8.29289 14.2929C8.68342 13.9024 9.31658 13.9024 9.70711 14.2929L11 15.5858L14.2929 12.2929C14.6834 11.9024 15.3166 11.9024 15.7071 12.2929ZM19 24C18.4477 24 18 24.4477 18 25C18 25.5523 18.4477 26 19 26H31C31.5523 26 32 25.5523 32 25C32 24.4477 31.5523 24 31 24H19ZM18 29C18 28.4477 18.4477 28 19 28H31C31.5523 28 32 28.4477 32 29C32 29.5523 31.5523 30 31 30H19C18.4477 30 18 29.5523 18 29ZM14 24H9C8.44772 24 8 24.4477 8 25V30C8 30.5523 8.44772 31 9 31H14C14.5523 31 15 30.5523 15 30V25C15 24.4477 14.5523 24 14 24Z" fill="#333333"></path> <path fill-rule="evenodd" clip-rule="evenodd" d="M44 40L41 44L38 40V22H44V40Z" fill="#333333"></path> <path fill-rule="evenodd" clip-rule="evenodd" d="M40 15H42C43.1046 15 44 15.8954 44 17V21H38V17C38 15.8954 38.8954 15 40 15Z" fill="#333333"></path> </g></svg>
+                            {% endif %}
+                            {% if subjects.is_Question_submited %}
+                            <svg width="21px" height="21px" fill="" viewBox="-10.56 -10.56 53.12 53.12" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns" fill="#000000"><g id="SVGRepo_bgCarrier" stroke-width="0"><rect x="-10.56" y="-10.56" width="53.12" height="53.12" rx="26.56" fill="#7ed0ec" strokewidth="0"></rect></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <title>note-text</title> <desc>Created with Sketch Beta.</desc> <defs> </defs> <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage"> <g id="Icon-Set" sketch:type="MSLayerGroup" transform="translate(-308.000000, -99.000000)" fill="#ffffff"> <path d="M332,107 L316,107 C315.447,107 315,107.448 315,108 C315,108.553 315.447,109 316,109 L332,109 C332.553,109 333,108.553 333,108 C333,107.448 332.553,107 332,107 L332,107 Z M338,127 C338,128.099 336.914,129.012 335.817,129.012 L311.974,129.012 C310.877,129.012 309.987,128.122 309.987,127.023 L309.987,103.165 C309.987,102.066 310.902,101 312,101 L336,101 C337.098,101 338,101.902 338,103 L338,127 L338,127 Z M336,99 L312,99 C309.806,99 308,100.969 308,103.165 L308,127.023 C308,129.22 309.779,131 311.974,131 L335.817,131 C338.012,131 340,129.196 340,127 L340,103 C340,100.804 338.194,99 336,99 L336,99 Z M332,119 L316,119 C315.447,119 315,119.448 315,120 C315,120.553 315.447,121 316,121 L332,121 C332.553,121 333,120.553 333,120 C333,119.448 332.553,119 332,119 L332,119 Z M332,113 L316,113 C315.447,113 315,113.448 315,114 C315,114.553 315.447,115 316,115 L332,115 C332.553,115 333,114.553 333,114 C333,113.448 332.553,113 332,113 L332,113 Z" id="note-text" sketch:type="MSShapeGroup"> </path> </g> </g> </g></svg>
+                          {% endif %}
+
+                        {% endif %}
+                    {% endfor %}
+                {% endif %}
+            {% endfor %}
+        </td>
+          <td>
+            {% for subject in item.course.all %}
+                {% if subject.year == '2' %}
+                    {% for subjects in b %}
+                    {% if subjects.course.id is subject.id%}
+                              
+                    {{ subject.name }} 
+
+                    {% if subjects.is_submited %}
+                      <svg width="21px" height="21px" viewBox="-11.7 -11.7 140.40 140.40" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="#000000"><g id="SVGRepo_bgCarrier" stroke-width="0"><rect x="-11.7" y="-11.7" width="140.40" height="140.40" rx="70.2" fill="#19376D" strokewidth="0"></rect></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <title></title> <desc></desc> <defs></defs> <g fill="none" fill-rule="evenodd" id="Page-1" stroke="none" stroke-width="1"> <g fill-rule="nonzero" id="clock"> <path d="M58.5,116.3 C90.5,116.3 116.4,90.3 116.4,58.4 C116.4,26.4 90.4,0.5 58.5,0.5 C26.6,0.5 0.6,26.4 0.6,58.4 C0.6,90.3 26.5,116.3 58.5,116.3 Z M58.5,8.6 C86,8.6 108.3,30.9 108.3,58.4 C108.3,85.9 86,108.2 58.5,108.2 C31,108.2 8.7,85.8 8.7,58.4 C8.7,30.9 31,8.6 58.5,8.6 Z" fill="#fff" id="Shape"></path> <path d="M55.8,65.2 L75.1,65.2 C77.4,65.2 79.2,63.4 79.2,61.1 C79.2,58.8 77.4,57 75.1,57 L59.9,57 L59.9,33.2 C59.9,30.9 58.1,29.1 55.8,29.1 C53.5,29.1 51.7,30.9 51.7,33.2 L51.7,61.1 C51.7,63.4 53.5,65.2 55.8,65.2 Z" fill="#ffffffff" id="Shape"></path> </g> </g> </g></svg>
+                    
+                    {% endif %}
+
+                    {% if subjects.is_corrected %}
+                    <svg width="21px" height="21px" viewBox="-11.7 -11.7 140.40 140.40" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="#000000" transform="rotate(0)"><g id="SVGRepo_bgCarrier" stroke-width="0"><rect x="-11.7" y="-11.7" width="140.40" height="140.40" rx="70.2" fill="#" strokewidth="0"></rect></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <title></title> <desc></desc> <defs></defs> <g fill="none" fill-rule="evenodd" id="Page-1" stroke="none" stroke-width="1"> <g fill-rule="nonzero" id="correct"> <path d="M34.5,55.1 C32.9,53.5 30.3,53.5 28.7,55.1 C27.1,56.7 27.1,59.3 28.7,60.9 L47.6,79.8 C48.4,80.6 49.4,81 50.5,81 C50.6,81 50.6,81 50.7,81 C51.8,80.9 52.9,80.4 53.7,79.5 L101,22.8 C102.4,21.1 102.2,18.5 100.5,17 C98.8,15.6 96.2,15.8 94.7,17.5 L50.2,70.8 L34.5,55.1 Z" fill="#17AB13" id="Shape"></path> <path d="M89.1,9.3 C66.1,-5.1 36.6,-1.7 17.4,17.5 C-5.2,40.1 -5.2,77 17.4,99.6 C28.7,110.9 43.6,116.6 58.4,116.6 C73.2,116.6 88.1,110.9 99.4,99.6 C118.7,80.3 122,50.7 107.5,27.7 C106.3,25.8 103.8,25.2 101.9,26.4 C100,27.6 99.4,30.1 100.6,32 C113.1,51.8 110.2,77.2 93.6,93.8 C74.2,113.2 42.5,113.2 23.1,93.8 C3.7,74.4 3.7,42.7 23.1,23.3 C39.7,6.8 65,3.9 84.8,16.2 C86.7,17.4 89.2,16.8 90.4,14.9 C91.6,13 91,10.5 89.1,9.3 Z" fill="#4A4" id="Shape"></path> </g> </g> </g></svg>
+                    {% endif %}
+                    
+                    {% if subjects.is_Correcten_Scale_submited %}
+                      ++  
+                    {% endif %}
+                    {% if subjects.is_Question_submited %}
+                    <svg width="21px" height="21px" viewBox="-10.56 -10.56 53.12 53.12" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns" fill="#000000"><g id="SVGRepo_bgCarrier" stroke-width="0"><rect x="-10.56" y="-10.56" width="53.12" height="53.12" rx="26.56" fill="#7ed0ec" strokewidth="0"></rect></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <title>note-text</title> <desc>Created with Sketch Beta.</desc> <defs> </defs> <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage"> <g id="Icon-Set" sketch:type="MSLayerGroup" transform="translate(-308.000000, -99.000000)" fill="#ffffff"> <path d="M332,107 L316,107 C315.447,107 315,107.448 315,108 C315,108.553 315.447,109 316,109 L332,109 C332.553,109 333,108.553 333,108 C333,107.448 332.553,107 332,107 L332,107 Z M338,127 C338,128.099 336.914,129.012 335.817,129.012 L311.974,129.012 C310.877,129.012 309.987,128.122 309.987,127.023 L309.987,103.165 C309.987,102.066 310.902,101 312,101 L336,101 C337.098,101 338,101.902 338,103 L338,127 L338,127 Z M336,99 L312,99 C309.806,99 308,100.969 308,103.165 L308,127.023 C308,129.22 309.779,131 311.974,131 L335.817,131 C338.012,131 340,129.196 340,127 L340,103 C340,100.804 338.194,99 336,99 L336,99 Z M332,119 L316,119 C315.447,119 315,119.448 315,120 C315,120.553 315.447,121 316,121 L332,121 C332.553,121 333,120.553 333,120 C333,119.448 332.553,119 332,119 L332,119 Z M332,113 L316,113 C315.447,113 315,113.448 315,114 C315,114.553 315.447,115 316,115 L332,115 C332.553,115 333,114.553 333,114 C333,113.448 332.553,113 332,113 L332,113 Z" id="note-text" sketch:type="MSShapeGroup"> </path> </g> </g> </g></svg>
+                  {% endif %}
+              {% endif %}
+                    {% endfor %}
+                {% endif %}
+            {% endfor %}
+        </td>
+        <td>
+          {% for subject in item.course.all %}
+              {% if subject.year == '3' %}
+                  {% for subjects in b %}
+                  {% if subjects.course.id is subject.id%}
+                              
+                  {{ subject.name }} 
+
+                  {% if subjects.is_submited %}
+                    <svg width="21px" height="21px" viewBox="-11.7 -11.7 140.40 140.40" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="#000000"><g id="SVGRepo_bgCarrier" stroke-width="0"><rect x="-11.7" y="-11.7" width="140.40" height="140.40" rx="70.2" fill="#19376D" strokewidth="0"></rect></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <title></title> <desc></desc> <defs></defs> <g fill="none" fill-rule="evenodd" id="Page-1" stroke="none" stroke-width="1"> <g fill-rule="nonzero" id="clock"> <path d="M58.5,116.3 C90.5,116.3 116.4,90.3 116.4,58.4 C116.4,26.4 90.4,0.5 58.5,0.5 C26.6,0.5 0.6,26.4 0.6,58.4 C0.6,90.3 26.5,116.3 58.5,116.3 Z M58.5,8.6 C86,8.6 108.3,30.9 108.3,58.4 C108.3,85.9 86,108.2 58.5,108.2 C31,108.2 8.7,85.8 8.7,58.4 C8.7,30.9 31,8.6 58.5,8.6 Z" fill="#fff" id="Shape"></path> <path d="M55.8,65.2 L75.1,65.2 C77.4,65.2 79.2,63.4 79.2,61.1 C79.2,58.8 77.4,57 75.1,57 L59.9,57 L59.9,33.2 C59.9,30.9 58.1,29.1 55.8,29.1 C53.5,29.1 51.7,30.9 51.7,33.2 L51.7,61.1 C51.7,63.4 53.5,65.2 55.8,65.2 Z" fill="#ffffffff" id="Shape"></path> </g> </g> </g></svg>
+                  
+                  {% endif %}
+
+                  {% if subjects.is_corrected %}
+                  <svg width="21px" height="21px" viewBox="-11.7 -11.7 140.40 140.40" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="#000000" transform="rotate(0)"><g id="SVGRepo_bgCarrier" stroke-width="0"><rect x="-11.7" y="-11.7" width="140.40" height="140.40" rx="70.2" fill="#" strokewidth="0"></rect></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <title></title> <desc></desc> <defs></defs> <g fill="none" fill-rule="evenodd" id="Page-1" stroke="none" stroke-width="1"> <g fill-rule="nonzero" id="correct"> <path d="M34.5,55.1 C32.9,53.5 30.3,53.5 28.7,55.1 C27.1,56.7 27.1,59.3 28.7,60.9 L47.6,79.8 C48.4,80.6 49.4,81 50.5,81 C50.6,81 50.6,81 50.7,81 C51.8,80.9 52.9,80.4 53.7,79.5 L101,22.8 C102.4,21.1 102.2,18.5 100.5,17 C98.8,15.6 96.2,15.8 94.7,17.5 L50.2,70.8 L34.5,55.1 Z" fill="#17AB13" id="Shape"></path> <path d="M89.1,9.3 C66.1,-5.1 36.6,-1.7 17.4,17.5 C-5.2,40.1 -5.2,77 17.4,99.6 C28.7,110.9 43.6,116.6 58.4,116.6 C73.2,116.6 88.1,110.9 99.4,99.6 C118.7,80.3 122,50.7 107.5,27.7 C106.3,25.8 103.8,25.2 101.9,26.4 C100,27.6 99.4,30.1 100.6,32 C113.1,51.8 110.2,77.2 93.6,93.8 C74.2,113.2 42.5,113.2 23.1,93.8 C3.7,74.4 3.7,42.7 23.1,23.3 C39.7,6.8 65,3.9 84.8,16.2 C86.7,17.4 89.2,16.8 90.4,14.9 C91.6,13 91,10.5 89.1,9.3 Z" fill="#4A4" id="Shape"></path> </g> </g> </g></svg>
+
+                  {% endif %}
+
+            {% endif %}
+                  {% endfor %}
+              {% endif %}
+          {% endfor %}
+      </td>
+      <td>
+        {% for subject in item.course.all %}
+            {% if subject.year == '4' %}
+                {% for subjects in b %}
+                {% if subjects.course.id is subject.id%}
+                              
+                {{ subject.name }} 
+
+                {% if subjects.is_submited %}
+                  <svg width="21px" height="21px" viewBox="-11.7 -11.7 140.40 140.40" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="#000000"><g id="SVGRepo_bgCarrier" stroke-width="0"><rect x="-11.7" y="-11.7" width="140.40" height="140.40" rx="70.2" fill="#19376D" strokewidth="0"></rect></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <title></title> <desc></desc> <defs></defs> <g fill="none" fill-rule="evenodd" id="Page-1" stroke="none" stroke-width="1"> <g fill-rule="nonzero" id="clock"> <path d="M58.5,116.3 C90.5,116.3 116.4,90.3 116.4,58.4 C116.4,26.4 90.4,0.5 58.5,0.5 C26.6,0.5 0.6,26.4 0.6,58.4 C0.6,90.3 26.5,116.3 58.5,116.3 Z M58.5,8.6 C86,8.6 108.3,30.9 108.3,58.4 C108.3,85.9 86,108.2 58.5,108.2 C31,108.2 8.7,85.8 8.7,58.4 C8.7,30.9 31,8.6 58.5,8.6 Z" fill="#fff" id="Shape"></path> <path d="M55.8,65.2 L75.1,65.2 C77.4,65.2 79.2,63.4 79.2,61.1 C79.2,58.8 77.4,57 75.1,57 L59.9,57 L59.9,33.2 C59.9,30.9 58.1,29.1 55.8,29.1 C53.5,29.1 51.7,30.9 51.7,33.2 L51.7,61.1 C51.7,63.4 53.5,65.2 55.8,65.2 Z" fill="#ffffffff" id="Shape"></path> </g> </g> </g></svg>
+                
+                {% endif %}
+
+                {% if subjects.is_corrected %}
+                <svg width="21px" height="21px" viewBox="-11.7 -11.7 140.40 140.40" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="#000000" transform="rotate(0)"><g id="SVGRepo_bgCarrier" stroke-width="0"><rect x="-11.7" y="-11.7" width="140.40" height="140.40" rx="70.2" fill="#" strokewidth="0"></rect></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <title></title> <desc></desc> <defs></defs> <g fill="none" fill-rule="evenodd" id="Page-1" stroke="none" stroke-width="1"> <g fill-rule="nonzero" id="correct"> <path d="M34.5,55.1 C32.9,53.5 30.3,53.5 28.7,55.1 C27.1,56.7 27.1,59.3 28.7,60.9 L47.6,79.8 C48.4,80.6 49.4,81 50.5,81 C50.6,81 50.6,81 50.7,81 C51.8,80.9 52.9,80.4 53.7,79.5 L101,22.8 C102.4,21.1 102.2,18.5 100.5,17 C98.8,15.6 96.2,15.8 94.7,17.5 L50.2,70.8 L34.5,55.1 Z" fill="#17AB13" id="Shape"></path> <path d="M89.1,9.3 C66.1,-5.1 36.6,-1.7 17.4,17.5 C-5.2,40.1 -5.2,77 17.4,99.6 C28.7,110.9 43.6,116.6 58.4,116.6 C73.2,116.6 88.1,110.9 99.4,99.6 C118.7,80.3 122,50.7 107.5,27.7 C106.3,25.8 103.8,25.2 101.9,26.4 C100,27.6 99.4,30.1 100.6,32 C113.1,51.8 110.2,77.2 93.6,93.8 C74.2,113.2 42.5,113.2 23.1,93.8 C3.7,74.4 3.7,42.7 23.1,23.3 C39.7,6.8 65,3.9 84.8,16.2 C86.7,17.4 89.2,16.8 90.4,14.9 C91.6,13 91,10.5 89.1,9.3 Z" fill="#4A4" id="Shape"></path> </g> </g> </g></svg>
+
+                {% endif %}
+
+          {% endif %}
+                {% endfor %}
+            {% endif %}
+        {% endfor %}
+    </td>
+    <td>
+      {% for subject in item.course.all %}
+          {% if subject.year == '5' %}
+              {% for subjects in b %}
+              {% if subjects.course.id is subject.id%}
+                              
+              {{ subject.name }} 
+
+              {% if subjects.is_submited %}
+                <svg width="21px" height="21px" viewBox="-11.7 -11.7 140.40 140.40" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="#000000"><g id="SVGRepo_bgCarrier" stroke-width="0"><rect x="-11.7" y="-11.7" width="140.40" height="140.40" rx="70.2" fill="#19376D" strokewidth="0"></rect></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <title></title> <desc></desc> <defs></defs> <g fill="none" fill-rule="evenodd" id="Page-1" stroke="none" stroke-width="1"> <g fill-rule="nonzero" id="clock"> <path d="M58.5,116.3 C90.5,116.3 116.4,90.3 116.4,58.4 C116.4,26.4 90.4,0.5 58.5,0.5 C26.6,0.5 0.6,26.4 0.6,58.4 C0.6,90.3 26.5,116.3 58.5,116.3 Z M58.5,8.6 C86,8.6 108.3,30.9 108.3,58.4 C108.3,85.9 86,108.2 58.5,108.2 C31,108.2 8.7,85.8 8.7,58.4 C8.7,30.9 31,8.6 58.5,8.6 Z" fill="#fff" id="Shape"></path> <path d="M55.8,65.2 L75.1,65.2 C77.4,65.2 79.2,63.4 79.2,61.1 C79.2,58.8 77.4,57 75.1,57 L59.9,57 L59.9,33.2 C59.9,30.9 58.1,29.1 55.8,29.1 C53.5,29.1 51.7,30.9 51.7,33.2 L51.7,61.1 C51.7,63.4 53.5,65.2 55.8,65.2 Z" fill="#ffffffff" id="Shape"></path> </g> </g> </g></svg>
+              
+              {% endif %}
+
+              {% if subjects.is_corrected %}
+              <svg width="21px" height="21px" viewBox="-11.7 -11.7 140.40 140.40" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="#000000" transform="rotate(0)"><g id="SVGRepo_bgCarrier" stroke-width="0"><rect x="-11.7" y="-11.7" width="140.40" height="140.40" rx="70.2" fill="#" strokewidth="0"></rect></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <title></title> <desc></desc> <defs></defs> <g fill="none" fill-rule="evenodd" id="Page-1" stroke="none" stroke-width="1"> <g fill-rule="nonzero" id="correct"> <path d="M34.5,55.1 C32.9,53.5 30.3,53.5 28.7,55.1 C27.1,56.7 27.1,59.3 28.7,60.9 L47.6,79.8 C48.4,80.6 49.4,81 50.5,81 C50.6,81 50.6,81 50.7,81 C51.8,80.9 52.9,80.4 53.7,79.5 L101,22.8 C102.4,21.1 102.2,18.5 100.5,17 C98.8,15.6 96.2,15.8 94.7,17.5 L50.2,70.8 L34.5,55.1 Z" fill="#17AB13" id="Shape"></path> <path d="M89.1,9.3 C66.1,-5.1 36.6,-1.7 17.4,17.5 C-5.2,40.1 -5.2,77 17.4,99.6 C28.7,110.9 43.6,116.6 58.4,116.6 C73.2,116.6 88.1,110.9 99.4,99.6 C118.7,80.3 122,50.7 107.5,27.7 C106.3,25.8 103.8,25.2 101.9,26.4 C100,27.6 99.4,30.1 100.6,32 C113.1,51.8 110.2,77.2 93.6,93.8 C74.2,113.2 42.5,113.2 23.1,93.8 C3.7,74.4 3.7,42.7 23.1,23.3 C39.7,6.8 65,3.9 84.8,16.2 C86.7,17.4 89.2,16.8 90.4,14.9 C91.6,13 91,10.5 89.1,9.3 Z" fill="#4A4" id="Shape"></path> </g> </g> </g></svg>
+
+              {% endif %}
+
+        {% endif %}
+              {% endfor %}
+          {% endif %}
+      {% endfor %}
+  </td>
+          {% endfor %}
+          </tr>
+      </tbody>
+  </table>
+  
+  <div class="ButtonSystemForExaminationTable">
+      <div class="groupTableBtn">
+          {% include 'part/pagiation.html' with page=c %}
+      </div>
+  </div>
+</div>
+</div>
+
+{% if userS == 'Deanship' %}
+
+<h4>Corrected Courses</h4>
+<div class="examinationTables">
+  
+  <div class="tableOfDone">
+    <table>
+      <tr>
+        <th>Course</th>
+        <th>Sussec Rate</th>
+        <th>Number of attender</th>
+        <th>Higher Grade</th>
+        <th>Lower Grade</th>
+        <th>Type</th>
+      </tr>
+      {% for i in cc %}
+              <tr>
+                  <td>{{i.course.name}}</td>
+                  <td>{{i.success_rate}}</td>
+                  <td>{{i.grade_count}}</td>
+                  <td>{{i.max_grade}}</td>
+                  <td>{{i.min_grade}}</td>
+                  <td>{{i.course.type}}</td>
+              </tr>
+      {% endfor %}
+  </table>
+  <div class="ButtonSystemForExaminationTable">
+    <div class="groupTableBtn">
+      {% include 'part/pagiation.html' with page=cc %}
+    </div>
+  </div>
+</div>
+</div>
+{% endif %}
+
+{% if userS == 'PresidencyUniversity' %}
+<h4>Report</h4>
+<div class="numberStat">
+  <div>
+    <a href="{% url 'epr' num=id %}">
+      <svg width="50px" height="50px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M4 4C4 3.44772 4.44772 3 5 3H14H14.5858C14.851 3 15.1054 3.10536 15.2929 3.29289L19.7071 7.70711C19.8946 7.89464 20 8.149 20 8.41421V20C20 20.5523 19.5523 21 19 21H5C4.44772 21 4 20.5523 4 20V4Z" stroke="#000000" stroke-width="2" stroke-linecap="round"></path> <path d="M20 8H15V3" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M11.5 13H11V17H11.5C12.6046 17 13.5 16.1046 13.5 15C13.5 13.8954 12.6046 13 11.5 13Z" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M15.5 17V13L17.5 13" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M16 15H17" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M7 17L7 15.5M7 15.5L7 13L7.75 13C8.44036 13 9 13.5596 9 14.25V14.25C9 14.9404 8.44036 15.5 7.75 15.5H7Z" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>
+    </a>
+  </div>
+  <div>
+    <form action="" method="get" style="margin: 0;">
+      <button href="" style="background-color: transparent; border:none;" name="email">
+        <svg width="50px" height="50px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M16 12C16 14.2091 14.2091 16 12 16C9.79086 16 8 14.2091 8 12C8 9.79086 9.79086 8 12 8C14.2091 8 16 9.79086 16 12ZM16 12V13.5C16 14.8807 17.1193 16 18.5 16V16C19.8807 16 21 14.8807 21 13.5V12C21 7.02944 16.9706 3 12 3C7.02944 3 3 7.02944 3 12C3 16.9706 7.02944 21 12 21H16" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>
+      </button>
+    </form>
+  </div>
+{% endif %}
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+<script>
+  let submited =  parseFloat('{{stat.submitedProg}}')
+  let unsubmited = 100 - submited
+  let syb = [unsubmited,submited]
+    var ctx = document.getElementById('myChart1').getContext('2d');
+    var myChart = new Chart(ctx, {
+      type: 'doughnut',
+      data: {
+        labels: ['Rest', 'Progress'],
+        datasets: [{
+          data: syb,
+          backgroundColor: ['rgba(25, 54, 109, 0.9)','rgba(0, 255, 255, 0.5)']
+        }]
+      },
+      options: {
+      title: {
+            display: true,
+            text: 'Submit Progress'
+        },
+        maintainAspectRatio: false,
+        responsive: true,
+      legend: {display: true},
+      },
+    });
+    
+
+    let corrected =  parseFloat('{{stat.correctedProg}}')
+    let uncorrected = 100 - corrected
+    let cor = [uncorrected,corrected]
+    var ctx2= document.getElementById('myChart2').getContext('2d');
+    var myChart = new Chart(ctx2, {
+      type: 'doughnut',
+      data: {
+        labels: ['Rest','Progrees'],
+        datasets: [{
+          data: cor,
+          backgroundColor: ['rgba(25, 54, 109, 0.9)','rgba(100, 255, 43, 0.9)']
+        }]
+      },
+      options: {
+        title: {
+            display: true,
+            text: 'Corrected Progress'
+        },
+        maintainAspectRatio: false,
+        responsive: true,
+      legend: {display: true},
+      },
+
+    });
+  
+</script>
+{% endblock %}

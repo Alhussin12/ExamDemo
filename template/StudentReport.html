@@ -1,0 +1,139 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+*{
+    box-sizing: border-box;
+}
+        body{
+            zoom: 110%;
+            
+        }
+
+        .tableOfDone ,tr ,th,td{
+            border-collapse: collapse;
+            
+        }
+        .tableOfDone{width: 100%;}
+
+    table tr th,
+    table tr td{
+    border: 2px solid #19376D;
+    padding-left: 5px;
+    color: black;
+    text-align: center;
+    
+    }
+    td{
+        font-size: 18px!important;
+        padding: 5px;
+        width: 300px;
+    }
+    tr{font-size: 18px!important; padding: 5px;}
+    table tr th{
+        background-color: #3282B8cc;
+        font: bold;
+    }
+    h3{font-size: 18px;}
+    @page {
+        size: a4 portrait;
+        @frame header_frame {           /* Static Frame */
+            -pdf-frame-content: header_content;
+            left: 450pt; width: 512pt; top: 25pt; height: 510pt;
+        }
+        @frame header_frame {           /* Static Frame */
+            -pdf-frame-content: header_contents;
+            left: 50pt; width: 512pt; top: 40pt; height: 510pt;
+        }
+        @frame content_frame {          /* Content Frame */
+            left: 50pt; width: 512pt; top: 120pt; height: 632pt;
+        }
+        @frame footer_frame {           /* Another static Frame */
+            -pdf-frame-content: footer_content;
+            left: 50pt; width: 512pt; top: 772pt; height: 20pt;
+        }
+    }
+
+    ul>li{
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+    ul>li>span{
+        color: blue;
+    }
+    </style>
+    
+</head>
+<body>
+    <div style=" margin:20px ; height: 200px;  display:flex ; justify-content: space-between; align-items: center;">
+        <div style=" width: 300px; height: 100%; display: flex; flex-direction: column; position: relative;">
+
+            <div style=" position: absolute; top:0; position: absolute; text-align: left;" id="header_contents">
+                <h3 style="margin: 0;  width: 100px;">Date::{{date}}</h3>
+                <h3 style="margin: 0; width: 100px;">Albaath University</h3>
+                <h3 style="margin: 0;  width: 100px;">Examination Department
+
+                </h3>
+            </div>
+        </div>
+    </div>
+    <h3 style="text-align: center; margin-top:10px ;">{{s}}</h3>
+    <div class="addStudent examinationTables " style="margin-top: 20px ;margin-inline: 20px;">
+        <div >
+            <table class="tableOfDone" >
+            <tr>
+               <th>Year</th>
+               <th>Seminester</th>
+               <th>Avagarg Grade</th>
+               <th>Sucssec</th>
+               <th>Attended</th>
+           </tr>
+           {% for i in a%}
+           <tr>
+               <td>{{i.ec.start_date.year}}</td>
+               <td>{{i.ec.Semineter}}</td>
+               <td class="avg" onload="this.style.color='blue';">{{i.average_grade}}</td>
+               <td>{{i.success_grades_count}}</td>
+               <td>{{i.grade_count}}</td>
+            </tr>
+            {% endfor %}
+            </table>
+        </div>
+        <div>
+            <ul style="font-size: 18px; margin-top: 20px;">
+                <li style="margin-top: 20px;">Total_avg: <span>{{avg}}</span></li>
+                <li >Attend: <span>{{att}}</span> </li>
+                <li>Sucsses: <span>{{suc}}</span></li>
+                <li>Fail: <span>{{fail}}</span></li>
+                <li>Suc_att_rate: <span>{{ar}}</span></li>
+            </ul>
+        </div>
+
+        <h3 style="text-align:center ;"> Courses </h3>
+        <table class="tableOfDone" >
+            <tr>
+               <th>Name</th>
+               <th>Academic_year</th>
+               <th>Grade</th>
+               <th>ExamCoursse</th>
+
+           </tr>
+           {% for j in course %}
+           <tr>
+               <td>{{j.courseId.name}}</td>
+               <td>{{j.courseId.year}}</td>
+               <td>{{j.grad}}</td>
+               <td> {{j.examCourse.start_date.year}} - {{j.examCourse.Semineter}} </td>
+            </tr>
+            {% endfor %}
+            </table>
+    <img style="height: 100px;" id="header_content" src="../static/image/Al-Baath_University_logo.png" alt>
+
+  
+</body>
+</html>

@@ -1,0 +1,67 @@
+{% load static %}
+<header class="navbarCont" >
+    <!-- left nav -->
+    <div class="leftNavCont" style="display: flex;">
+        
+        <div class="leftNav">
+            <!-- show in min logout -->
+            <div class="leftNavMin mobileHover">
+                <svg xmlns="http://www.w3.org/2000/svg" style="position: relative; top:1px;left:-2px;" fill='white' width="26" height="26" class="bi bi-box-arrow-left" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M6 12.5a.5.5 0 0 0 .5.5h8a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 0-.5-.5h-8a.5.5 0 0 0-.5.5v2a.5.5 0 0 1-1 0v-2A1.5 1.5 0 0 1 6.5 2h8A1.5 1.5 0 0 1 16 3.5v9a1.5 1.5 0 0 1-1.5 1.5h-8A1.5 1.5 0 0 1 5 12.5v-2a.5.5 0 0 1 1 0v2z"/>
+                    <path fill-rule="evenodd" d="M.146 8.354a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L1.707 7.5H10.5a.5.5 0 0 1 0 1H1.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3z"/>
+                </svg>
+            </div>
+            <a href="{% url 'index' %}"><div class="logoNav" ></div></a>
+            <div class="logoText px-2">Al-Baath University Examination Department</div>
+        </div>
+        <!-- Search -->
+        <div class="d-flex " style="align-items: center; justify-content: center;">
+            <button  type="button "  class="searchInputButtonMin mobileHover">
+                <svg class="" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="white" class="bi bi-search" viewBox="0 0 16 16">
+                    <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+                </svg>
+            </button>
+            <form class="searchInput" action="" method="get" style="border: 1px solid var(--bs-Gray); border-radius: 10px;">
+                <button type="submit"  class="searchButton px-2"  >
+                    <svg class="" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="white" class="bi bi-search" viewBox="0 0 16 16">
+                        <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+                    </svg>
+                </button>
+                <input type="search" class="py-1 searchInputForm " placeholder="Search"> 
+            </form>
+        </div>
+        <!-- link nav -->
+        <div class="leftRightNav " >
+            <a href="{% url 'index' %}">
+                Home
+            </a>
+            
+            <a href="#">
+                Setting
+            </a>
+
+        </div>
+    </div>
+    <!--mid nav-->
+    <div class="midNav">
+        <a href="{% url 'logout' %}" style="display: flex; align-items: center;">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="white" style="position: relative; left:-2px;" width="24" height="22" class="bi bi-box-arrow-left" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M6 12.5a.5.5 0 0 0 .5.5h8a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 0-.5-.5h-8a.5.5 0 0 0-.5.5v2a.5.5 0 0 1-1 0v-2A1.5 1.5 0 0 1 6.5 2h8A1.5 1.5 0 0 1 16 3.5v9a1.5 1.5 0 0 1-1.5 1.5h-8A1.5 1.5 0 0 1 5 12.5v-2a.5.5 0 0 1 1 0v2z"/>
+                <path fill-rule="evenodd" d="M.146 8.354a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L1.707 7.5H10.5a.5.5 0 0 1 0 1H1.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3z"/>
+            </svg>
+            <div>Logout</div>
+        </a>
+    </div>
+    <!-- right nav -->
+    <div class="rightNav ">
+        <div class="listButtonMin">
+            <button class="buttonMin" value="OFF">
+                <svg class="buttonMinDarkSvg mobileHover" style="position: relative;" xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="white" class="bi bi-arrow-left" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
+                </svg>
+            </button>
+        <!-- minMenu -->
+            <div class="minLeftRightNav mobileHover" ></div>
+        </div>
+    </div>
+</header>

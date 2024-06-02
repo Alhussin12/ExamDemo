@@ -1,0 +1,273 @@
+{% extends 'main.html' %}
+{% load static %}
+{% block style %}
+<style>
+    .formCon>div
+    {
+        margin: 5px;
+        margin-block:10px;
+    }
+    .formCon>h4{
+        border-bottom: 3px solid var(--bs-one);
+        padding: 5px;
+        width: max-content;
+    }
+    .row-2,.row-1{
+        display: flex;
+        flex-wrap: wrap;
+        gap: 15px;
+    }
+    .row-2>*,.row-1>*{
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+        min-width: 200px;
+    }
+    .row-1>div>select,.row-2>div>select{
+        padding: 1.8px;
+    }
+
+    .row-3>button{
+        background-color: var(--bs-one);
+        color: white;
+        border: none;
+        border-radius: 3px;
+        transition: background-color .5s;
+    }
+    .row-3>button:hover{
+        background-color: var(--bs-border);
+        transition: background-color .5s;
+    }
+</style>
+{% endblock %}
+
+{% block scripts %}
+
+{% endblock %}
+
+{% block con %}
+<form action="" id="searchCourse" method="post">
+    {% csrf_token %}
+    <div class="formCon">
+        <h4>Add Course</h4>
+        <div class="row-1">
+            <div>
+                <label for="courseName">Name:</label>
+                <input type="text" placeholder="enter name .." name="courseName" id="courseName">
+            </div>
+            <div>
+                <label for="year">Year:</label>
+                <select name="year" id="year">
+                    <option value="None">__NONE__</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                </select>
+            </div>
+            <div>
+                <label for="dept">Department:</label>
+                <select name="dept" id="dept">
+                    <option value="None">__NONE__</option>
+                    <option value="NetWork">Network</option>
+                    <option value="Software">Software</option>
+                </select>
+            </div>
+        </div>
+        <div class="row-2">
+            <div>
+                <label for="type">Type:</label>
+                <select name="type" id="type">
+                    <option value="None">__NONE__</option>
+                    <option value="Automated">Automated</option>
+                    <option value="Written">Written</option>
+                </select>
+            </div>
+            <div>
+                <label for="inst">Instractor:</label>
+                <select name="inst" id="inst">
+                    {% for i in all %}
+                    <option value="{{i.id}}">{{i.firstName}} {{i.lastName}} {{i.id}}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+        <div class="row-3">
+            <button id="Crsbutton1" type="button">
+                Add Course
+            </button>
+            <button id="CrsSrchbutton1" type="button">
+                Search
+            </button>
+        </div>
+    </div>
+</form>
+<div class="examinationTables formCon">
+    <h4>Courses</h4>
+    <div class="tableOfDone">
+        <table style="position: relative;">
+           <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Year</th>
+                    <th>Department</th>
+                    <th>Type</th>
+                    <th class="text-center" >Modify</th>
+                </tr>
+           </thead>
+           <tbody id="tableCourse" style="position: relative;">
+           </tbody>
+        </table>
+    </div>
+    <div class="ButtonSystemForExaminationTable my-1">
+        <div class="PaginationSys groupTableBtn">
+            <button id="backBtn" disabled>Perv</button>
+            <span id="valueOfPage">1</span>
+            - of -
+            <span class="toPage">3</span>
+            <button id="nextBtn">Next</button>
+            Resault:: <span class="resaultSs"></span>
+        </div>
+    </div>
+    
+</div>
+
+
+<script>
+    // add student API SYSTEM   
+let Crsbutton1 = document.getElementById('Crsbutton1');
+Crsbutton1.addEventListener('click',function(){
+        let msg = document.querySelector('.mssg');
+        let courseName = document.getElementById('courseName').value;
+        let year = document.getElementById('year').value;
+        let dept = document.getElementById('dept').value;
+        let type = document.getElementById('type').value;
+        let inst = document.getElementById('inst').value;
+        fetch('/courses/addCourseJson/',{
+            body:JSON.stringify({
+            courseName:courseName,
+            type:type,
+            dept:dept,
+            year:year,
+            inst:inst
+            }),method:'POST',})
+            .then(res => res.json()).then(data=>{
+            msg.style.display='grid';
+            if(data.e){
+                msg.style.backgroundColor='rgba(255, 0, 43, 0.5)';
+                msg.innerHTML=data.e;
+                setTimeout(()=>{
+                    msg.style.display='none';
+                },3500)
+            }
+            else{
+                let courseName = document.getElementById('courseName');
+                let year = document.getElementById('year');
+                let dept = document.getElementById('dept');
+                let type = document.getElementById('type');
+                let inst = document.getElementById('inst');
+                courseName.value='';
+                dept.value='None';
+                year.value='1'
+                type.value ='Automated'
+                msg.style.backgroundColor='var(--bs-border)';
+                msg.innerHTML=data.s;
+                setTimeout((e)=>{
+                    msg.style.display='none';
+                },3500)
+                }
+        })})
+
+
+let v = 5;
+let backBtn =document.getElementById('backBtn');
+let nextBtn =document.getElementById('nextBtn');
+
+let CrsSrchbutton1 =document.getElementById('CrsSrchbutton1')
+window.onload=
+CrsSrchbutton1.onclick=
+backBtn.onclick=
+nextBtn.onclick=
+function(e){
+    if(e.target.id == 'nextBtn')
+        {
+            document.getElementById('valueOfPage').innerHTML= 
+            parseInt(document.getElementById('valueOfPage').innerHTML)+1
+            backBtn.removeAttribute('disabled')
+            v=v+5
+        }
+    else if(e.target.id == 'backBtn')
+        {
+            document.getElementById('valueOfPage').innerHTML= 
+            parseInt(document.getElementById('valueOfPage').innerHTML)-1
+            nextBtn.removeAttribute('disabled')
+            v=v-5
+
+        }
+    else if(e.target.id = 'CrsSrchbutton1'){
+            v=5;
+            document.getElementById('valueOfPage').innerHTML=1
+            nextBtn.removeAttribute('disabled')
+        }
+
+    if(v<=5)
+    backBtn.setAttribute('disabled','true')
+    
+    let courseName = document.getElementById('courseName').value;
+    let year = document.getElementById('year').value;
+    let dept = document.getElementById('dept').value;
+    let type = document.getElementById('type').value;
+    let inst = document.getElementById('inst').value;
+    fetch(`/courses/searchCourseJson/${v}`,{
+        body:JSON.stringify({
+        courseName:courseName,
+        type:type,
+        dept:dept,
+        year:year,
+        inst:inst
+        }),method:'POST',})
+        .then(res => res.json()).then(data=>{
+            let tableCourse =document.getElementById('tableCourse')
+            let resaultSs = document.querySelector('.resaultSs');
+            let toPage = document.querySelector('.toPage');
+            
+            resaultSs.innerHTML = data.size;
+             max = Math.ceil(data.size/5)*5
+            toPage.innerHTML=Math.ceil(data.size/5)
+            tableCourse.innerHTML='';
+            if(v>=max)
+                nextBtn.setAttribute('disabled','true')
+            data.s.forEach((e)=>{
+                tableCourse.innerHTML = tableCourse.innerHTML+`
+                <tr>
+                    <td>${e.cn}</td>
+                    <td>${e.year}</td>
+                    <td>${e.dept}</td>
+                    <td>${e.type}</td>
+                    <td >
+                        <div class="modifyTableBtn">
+                        <button data-delete='${e.id}' class='studentSelete' >
+                            <a>
+                            <svg height="16px" width="16px" version="1.1" id="_x32_" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 512 512" xml:space="preserve" fill="#ffffff" stroke="#ffffff"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g> <path class="st0" d="M439.114,69.747c0,0,2.977,2.1-43.339-11.966c-41.52-12.604-80.795-15.309-80.795-15.309l-2.722-19.297 C310.387,9.857,299.484,0,286.642,0h-30.651h-30.651c-12.825,0-23.729,9.857-25.616,23.175l-2.722,19.297 c0,0-39.258,2.705-80.778,15.309C69.891,71.848,72.868,69.747,72.868,69.747c-10.324,2.849-17.536,12.655-17.536,23.864v16.695 h200.66h200.677V93.611C456.669,82.402,449.456,72.596,439.114,69.747z"></path> <path class="st0" d="M88.593,464.731C90.957,491.486,113.367,512,140.234,512h231.524c26.857,0,49.276-20.514,51.64-47.269 l25.642-327.21H62.952L88.593,464.731z M342.016,209.904c0.51-8.402,7.731-14.807,16.134-14.296 c8.402,0.51,14.798,7.731,14.296,16.134l-14.492,239.493c-0.51,8.402-7.731,14.798-16.133,14.288 c-8.403-0.51-14.806-7.722-14.296-16.125L342.016,209.904z M240.751,210.823c0-8.42,6.821-15.241,15.24-15.241 c8.42,0,15.24,6.821,15.24,15.241v239.492c0,8.42-6.821,15.24-15.24,15.24c-8.42,0-15.24-6.821-15.24-15.24V210.823z M153.833,195.608c8.403-0.51,15.624,5.894,16.134,14.296l14.509,239.492c0.51,8.403-5.894,15.615-14.296,16.125 c-8.403,0.51-15.624-5.886-16.134-14.288l-14.509-239.493C139.026,203.339,145.43,196.118,153.833,195.608z"></path> </g> </g></svg>
+                            </a>
+                        </button>
+                    </div>
+                    </td>
+                </tr>
+                `;
+            }
+            
+            )
+            let DeleteStudent = document.querySelectorAll('[data-delete]');
+            DeleteStudent.forEach((e)=>{
+                e.onclick= function(){
+                    studentId = e.getAttribute('data-delete')
+                    console.log(studentId)
+                }})
+
+            
+    })
+}
+</script>
+{% endblock %}

@@ -1,0 +1,110 @@
+{% extends 'main.html' %}
+{% load static %}
+{% block style %}
+    <!-- <link rel="stylesheet" href="{% static 'css/test.css' %}"> -->
+    <style>
+        .numberStat{
+            display: flex;
+            width: 100%;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 10px;
+            
+          }
+          p,h5{margin: 0;}
+          .numberStat>div{
+            flex: 1;
+            min-width: 100px;
+            width: 100px;
+            min-height: 100px;
+            height: 100px;
+            background-color: rgba(255, 255, 255, 0.548);
+            border: 1px solid var(--bs-one);
+            border-radius: 3px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        
+          }
+          .border{
+            border: 1px solid var(--bs-one)!important;
+            border-radius: 3px;
+        
+          }
+          .numberStat>div>h5{
+            font: bolder;
+            font-size: 1.4vw;
+          }
+          .numberStat>div>p{
+            color: var(--bs-one);
+        
+          }
+          h4{
+            margin-block:10px!important;
+          }
+    </style>
+{% endblock %}
+{% block scripts %}
+    <!-- <script src="{% static 'js/test.js' %}" defer></script> -->
+{% endblock %}
+
+
+
+{% block con %}
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item "><a style="color:black" href="{% url 'ss' %}">Students</a></li>
+        <li class="breadcrumb-item "><a style="color:black" href="{% url 'ssecs' pks=pkss %}" >{{name}}</a></li>
+        <li class="breadcrumb-item" style="color:var(--bs-one)" aria-current="page">{{ec}}</li>
+    </ol>
+</nav>
+
+<div class="examinationTables">
+    <h4>{{ec}}</h4>
+</div>
+
+<div class="numberStat">
+    <div>
+      <h5>Attended</h5>
+      <p>{{stat.grade_count}}</p>
+    </div>
+    <div>
+      <h5>Sucsses</h5>
+      <p>{{stat.success_grades_count}}</p>
+    </div>
+    <div>
+      <h5>Fail</h5>
+      <p>{{fail}}</p>
+    </div>
+    <div>
+      <h5>Avg_Grades</h5>
+      <p>{{avg}}%</p>
+    </div>
+    <div>
+      <h5>Succ_Att</h5>
+      <p>{{ar}}%</p>
+    </div>
+</div>
+<div class="examinationTables">
+    <h4>{{name}}</h4>
+</div>
+<div class="addStudent examinationTables ">
+    <div class="tableOfDone">
+        <table style="position: relative;">
+        <tr>
+            <th>Course</th>
+           <th>Grade</th>
+        </tr>
+        {% for i in grade %}
+        <tr>
+            <td>{{i.courseId.name}}</td>
+            <td>{{i.grad}}</td>
+        </tr>
+        {% endfor %}
+        </table>
+    </div>
+</div>
+{% endblock %}

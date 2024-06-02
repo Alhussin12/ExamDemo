@@ -1,0 +1,132 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+*{
+    box-sizing: border-box;
+}
+        body{
+            zoom: 110%;
+            
+        }
+
+        .tableOfDone ,tr ,th,td{
+            border-collapse: collapse;
+            
+        }
+        .tableOfDone{width: 100%;}
+
+    table tr th,
+    table tr td{
+    border: 2px solid #19376D;
+    padding-left: 5px;
+    color: black;
+    text-align: center;
+    
+    }
+    td{
+        font-size: 18px!important;
+        padding: 5px;
+        width: 300px;
+    }
+    tr{font-size: 18px!important; padding: 5px;}
+    table tr th{
+        background-color: #3282B8cc;
+        font: bold;
+    }
+    h3{font-size: 18px;}
+    @page {
+        size: a4 portrait;
+        @frame header_frame {           /* Static Frame */
+            -pdf-frame-content: header_content;
+            left: 450pt; width: 512pt; top: 25pt; height: 510pt;
+        }
+        @frame header_frame {           /* Static Frame */
+            -pdf-frame-content: header_contents;
+            left: 50pt; width: 512pt; top: 40pt; height: 510pt;
+        }
+        @frame content_frame {          /* Content Frame */
+            left: 50pt; width: 512pt; top: 120pt; height: 632pt;
+        }
+        @frame footer_frame {           /* Another static Frame */
+            -pdf-frame-content: footer_content;
+            left: 50pt; width: 512pt; top: 772pt; height: 20pt;
+        }
+    }
+
+    ul>li{
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+    ul>li>span{
+        color: blue;
+    }
+    </style>
+    
+</head>
+<body>
+    <div style=" margin:20px ; height: 200px;  display:flex ; justify-content: space-between; align-items: center;">
+        <div style=" width: 300px; height: 100%; display: flex; flex-direction: column; position: relative;">
+
+            <div style=" position: absolute; top:0; position: absolute; text-align: left;" id="header_contents">
+                <h3 style="margin: 0;  width: 100px;">Date::{{stat.now}}</h3>
+                <h3 style="margin: 0; width: 100px;">Albaath University</h3>
+                <h3 style="margin: 0;  width: 100px;">Examination Department
+
+                </h3>
+            </div>
+        </div>
+    </div>
+    <h3 style="text-align: center; margin-top:10px ;">Progress Static</h3>
+    <div class="addStudent examinationTables " style="margin-top: 20px ;margin-inline: 20px;">
+        <div >
+            <table class="tableOfDone" >
+            <tr>
+               <th>Courses</th>
+               <th>Submited</th>
+               <th>Corrected</th>
+               <th>Corrected Progress</th>
+               <th>Submited Progress</th>
+           </tr>
+           <tr>
+               <td>{{stat.allCoursesInExamProgram}}</td>
+               <td>{{stat.submited}}</td>
+               <td >{{stat.corrected}}</td>
+               <td>{{stat.correctedProg}}</td>
+               <td>{{stat.submitedProg}}</td>
+            </tr>
+            </table>
+        </div>
+
+        <h3 style="text-align:center ;">Courses Corrected</h3>
+        <table class="tableOfDone" >
+            <tr>
+               <th>CourseName</th>
+               <th>suc_rate</th>
+               <th>Max_grade</th>
+               <th>Min_grade</th>
+               <th>stu_count_att</th>
+               <th>Correcte Date</th>
+
+           </tr>
+           {% for i in today %}
+           <tr>
+               <td>{{i.course.name}}</td>
+               <td>{{i.success_rate}}</td>
+               <td>{{i.max_grade}}</td>
+               <td>{{i.min_grade}}</td>
+               <td>{{i.grade_count}}</td>
+               <td>{{i.corrected_date}}</td>
+            </tr>
+            {% endfor %}
+            </table>
+    <img style="height: 100px;" id="header_content" src="../static/image/Al-Baath_University_logo.png" alt>
+
+  
+</body>
+</html>

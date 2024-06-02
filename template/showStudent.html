@@ -1,0 +1,67 @@
+{% extends 'main.html' %}
+{% load static %}
+{% block style %}
+<link rel="stylesheet" href="{% static 'css/students.css' %}">
+{% endblock %}
+{% block scripts %}
+<script src="{% static 'js/jsonSs.js' %}" defer></script>
+{% endblock %}
+
+{% block con %}
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item" style="color:var(--bs-one)" aria-current="page">Students</li>
+        </ol>
+    </nav>
+
+    <div class="addStudent examinationTables ">
+        <h4>Filter Student</h4>
+        <div class="addManuallyStudent">
+            <form action="" class="formSs">
+                <div>
+                    <div class="grp1">
+                        <label for="firstName">FirstName :</label>
+                        <input type="text" name="firstName" id="firstNameSs">
+                        <label for="lastName">LastName :</label>
+                        <input type="text" name="lastName" id="lastNameSs">
+                    </div>
+                    <div class="grp2">
+                        <label for="year">Year :</label>
+                        <input type="text" name="year" id="yearSs">
+                        <label for="serial">Serial :</label>
+                        <input type="text" name="serial" id="serialSs">
+                    </div>
+                </div>
+            </form>
+        </div>
+        <h4>Students</h4>
+        <div class="tableOfDone">
+            <table style="position: relative;">
+               <thead>
+                    <tr>
+                        <th>AcadimcYear</th>
+                        <th>FirstName</th>
+                        <th>LastName</th>
+                        <th>SerialNumber</th>
+                        <th class="text-center" >Modify</th>
+                    </tr>
+               </thead>
+               <tbody id="tableStudentADD" style="position: relative;">
+               </tbody>
+            </table>
+        </div>
+        <div class="ButtonSystemForExaminationTable my-1">
+            <div class="PaginationSys groupTableBtn">
+                <button id="backBtn">Perv</button>
+                <span id="valueOfPage">1</span>
+                - of -
+                <span class="toPage">3</span>
+                <button id="nextBtn">Next</button>
+                Resault:: <span class="resaultSs"></span>
+            </div>
+            <div class="groupTableBtn">
+                <button><a href="{% url 'as' %}">New Students</a></button>
+            </div>
+        </div>
+    </div>
+{% endblock %}

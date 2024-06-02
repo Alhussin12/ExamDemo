@@ -1,0 +1,63 @@
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="{% static 'js/bootstrap.min.js' %}" defer></script>
+    <script src="{% static 'js/jquery-3.6.0.js' %}" defer></script>
+    <link rel="stylesheet" href="{% static 'css/login.css' %}">
+
+    <title>Examination | Login</title>
+
+</head>
+{% if not request.user.is_authenticated %}
+<body>
+    <form action="" method="post">
+     {% csrf_token %}
+        <div class="loginContainer">
+            <img class="icon" src="/static/image/Al-Baath_University_logo.png" alt="">
+            <div class="subloginContainer">
+                <label for="uname">
+                    <b>Username</b>
+                </label>
+                <input type="text" placeholder="Enter Username" name="username" required>
+            </div>
+            <div class="subloginContainer">
+                <label for="psw">
+                    <b>Password</b>
+                </label>
+                <input type="password" placeholder="Enter Password" name="password" required>
+            </div>
+            <hr style="margin: 15 20;">
+            <div class="subloginContainer1">
+                <button type="submit">
+                    Login
+                </button>
+                <label style="font-size: 18px;">
+                    <input  type="checkbox" checked="checked" name="rem"> 
+                    <span>RememberMe</span>
+                </label>
+            </div>
+            <!-- <div class="subloginContainer1">
+                <span class="" style="font-size: 10px;">
+                    <a href="">Forgot Password?</a>
+                </span>
+            </div> -->
+            </div>
+        </div>
+    </form>
+</body>
+{% else %}
+
+<div style="display: flex; align-items: center; justify-content: center; height: 100%;">
+    <div>
+        You alreay login if you want to  <a style="color:blue" href="{% url 'logout' %}">logout</a>
+        <br>
+        Or return to  <a style="color:blue" href="{% url 'index' %}">Main Page</a>
+    </div>
+</div>
+</html>
+
+
+{% endif %}

@@ -1,0 +1,226 @@
+{% load static %}
+<html lang="en" dir="auto">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="icon"       href="{% static 'icon/Al-Baath_University_logo.png' %}">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
+        <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+        <link rel="stylesheet" href="{% static 'css/style.css' %}">
+        <link rel="stylesheet" href="{% static 'css/multiformcss.css' %}">
+        <link rel="stylesheet" href="{% static 'css/examTableCss.css' %}">
+        <style>
+            ol{
+                margin: 0!important;
+            }
+        </style>
+        {% block style %}
+        {% endblock style %}
+        <script src="{% static 'js/bootstrap.min.js' %}" defer></script>
+        <script src="{% static 'js/jquery-3.6.0.js' %}" defer></script>
+        <script src="{% static 'js/scripts.js' %}" defer></script>
+        <script src="{% static 'js/multiformjs.js' %}" defer ></script>
+        {% block scripts %}
+        {% endblock scripts %}
+        <!-- <script src="https://maps.googleapis.com/maps/api/js?&callback=initMap&v=weekly" defer></script> -->
+        <title>albaath | {% block title %} Exam Derpatment {% endblock title %}</title>
+    </head> 
+    <body id="body">
+
+        {% if request.user.is_authenticated %}
+        <!-- hole site -->
+        <main >
+            <!-- header navbar -->
+            {% include 'part/header.html' with localcontent="Actual content" %}
+            <!-- body -->
+            <div class="bodyContent">
+                <!-- left body-->
+                {% load static %}
+<style>
+    .leftBarButtonActive{
+        background-color: var(--bs-Gray);
+    }
+</style>
+
+<div class="leftBarCont">
+    <div class=" leftBar" >
+        {% if userS == 'Deanship' %}
+        <a href="{% url 'ss' %}" style="position: relative; left: 0;" class="mobileHover {% if '/Student/ShowStudent' == request.path %} active {% endif %}">
+            
+            <svg viewBox="-3.12 -3.12 30.24 30.24" width="30px" height="30px" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#ffffff"><g id="SVGRepo_bgCarrier" stroke-width="0"><path transform="translate(-3.12, -3.12), scale(1.8900000000000001)" fill="#3282B8cc" d="M9.166.33a2.25 2.25 0 00-2.332 0l-5.25 3.182A2.25 2.25 0 00.5 5.436v5.128a2.25 2.25 0 001.084 1.924l5.25 3.182a2.25 2.25 0 002.332 0l5.25-3.182a2.25 2.25 0 001.084-1.924V5.436a2.25 2.25 0 00-1.084-1.924L9.166.33z" strokewidth="0"></path></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <circle cx="9" cy="9" r="2" stroke="#ffffff" stroke-width="1.5"></circle> <path d="M13 15C13 16.1046 13 17 9 17C5 17 5 16.1046 5 15C5 13.8954 6.79086 13 9 13C11.2091 13 13 13.8954 13 15Z" stroke="#ffffff" stroke-width="1.5"></path> <path d="M22 12C22 15.7712 22 17.6569 20.8284 18.8284C19.6569 20 17.7712 20 14 20H10C6.22876 20 4.34315 20 3.17157 18.8284C2 17.6569 2 15.7712 2 12C2 8.22876 2 6.34315 3.17157 5.17157C4.34315 4 6.22876 4 10 4H14C17.7712 4 19.6569 4 20.8284 5.17157C21.298 5.64118 21.5794 6.2255 21.748 7" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round"></path> <path d="M19 12H15" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round"></path> <path d="M19 9H14" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round"></path> <path d="M19 15H16" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round"></path> </g></svg>
+            
+            <span>Show/Statistic</span>
+        </a>
+        <a href="{% url 'et' %}" style="position: relative; left: 0;" class="{% if '/Examination/ExamCourseTable' == request.path %} active {% endif %} mobileHover">
+            <svg fill="#ffffff" width="29px" height="29px" viewBox="-672 -672 3264.00 3264.00" xmlns="http://www.w3.org/2000/svg" stroke="#ffffff"><g id="SVGRepo_bgCarrier" stroke-width="0"><path transform="translate(-672, -672), scale(204)" fill="#3282B8cc" d="M9.166.33a2.25 2.25 0 00-2.332 0l-5.25 3.182A2.25 2.25 0 00.5 5.436v5.128a2.25 2.25 0 001.084 1.924l5.25 3.182a2.25 2.25 0 002.332 0l5.25-3.182a2.25 2.25 0 001.084-1.924V5.436a2.25 2.25 0 00-1.084-1.924L9.166.33z" strokewidth="0"></path></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M1740 0c99.24 0 180 80.76 180 180v1560c0 99.24-80.76 180-180 180H180c-99.24 0-180-80.76-180-180V180C0 80.76 80.76 0 180 0h1560Zm-420 1200h480V720h-480v480Zm480 540v-420h-480v480h420c33 0 60-27 60-60ZM720 1200h480V720H720v480Zm0 600h480v-480H720v480Zm-600-600h480V720H120v480Zm480 600v-480H120v420c0 33 27 60 60 60h420Z" fill-rule="evenodd"></path> </g></svg>
+            <span>ShowTable</span>
+        </a>
+        <a href="{% url 'addCourse' %}" style="position: relative; left: 0;" class="mobileHover {% if '/courses/addCourse' == request.path %} active {% endif %}">
+            <svg width="29px" height="29px" viewBox="-3.84 -3.84 31.68 31.68" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"><path transform="translate(-3.84, -3.84), scale(1.98)" fill="#3282B8cc" d="M9.166.33a2.25 2.25 0 00-2.332 0l-5.25 3.182A2.25 2.25 0 00.5 5.436v5.128a2.25 2.25 0 001.084 1.924l5.25 3.182a2.25 2.25 0 002.332 0l5.25-3.182a2.25 2.25 0 001.084-1.924V5.436a2.25 2.25 0 00-1.084-1.924L9.166.33z" strokewidth="0"></path></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M17 19H21M19 17V21M13 3H8.2C7.0799 3 6.51984 3 6.09202 3.21799C5.71569 3.40973 5.40973 3.71569 5.21799 4.09202C5 4.51984 5 5.0799 5 6.2V17.8C5 18.9201 5 19.4802 5.21799 19.908C5.40973 20.2843 5.71569 20.5903 6.09202 20.782C6.51984 21 7.0799 21 8.2 21H12M13 3L19 9M13 3V7.4C13 7.96005 13 8.24008 13.109 8.45399C13.2049 8.64215 13.3578 8.79513 13.546 8.89101C13.7599 9 14.0399 9 14.6 9H19M19 9V12M9 17H12M9 13H15M9 9H10" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>
+            <span>Add/Course</span>
+            
+        </a>
+        {% elif userS == 'PresidencyUniversity' %}
+        <a href="{% url 'ss' %}" style="position: relative; left: 0;" class="mobileHover {% if '/Student/ShowStudent' == request.path %} active {% endif %}">
+            <svg viewBox="-3.12 -3.12 30.24 30.24" width="30px" height="30px" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#ffffff"><g id="SVGRepo_bgCarrier" stroke-width="0"><path transform="translate(-3.12, -3.12), scale(1.8900000000000001)" fill="#3282B8cc" d="M9.166.33a2.25 2.25 0 00-2.332 0l-5.25 3.182A2.25 2.25 0 00.5 5.436v5.128a2.25 2.25 0 001.084 1.924l5.25 3.182a2.25 2.25 0 002.332 0l5.25-3.182a2.25 2.25 0 001.084-1.924V5.436a2.25 2.25 0 00-1.084-1.924L9.166.33z" strokewidth="0"></path></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <circle cx="9" cy="9" r="2" stroke="#ffffff" stroke-width="1.5"></circle> <path d="M13 15C13 16.1046 13 17 9 17C5 17 5 16.1046 5 15C5 13.8954 6.79086 13 9 13C11.2091 13 13 13.8954 13 15Z" stroke="#ffffff" stroke-width="1.5"></path> <path d="M22 12C22 15.7712 22 17.6569 20.8284 18.8284C19.6569 20 17.7712 20 14 20H10C6.22876 20 4.34315 20 3.17157 18.8284C2 17.6569 2 15.7712 2 12C2 8.22876 2 6.34315 3.17157 5.17157C4.34315 4 6.22876 4 10 4H14C17.7712 4 19.6569 4 20.8284 5.17157C21.298 5.64118 21.5794 6.2255 21.748 7" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round"></path> <path d="M19 12H15" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round"></path> <path d="M19 9H14" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round"></path> <path d="M19 15H16" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round"></path> </g></svg>
+            
+            <span>Show/Statistic</span>
+        </a>
+        <a href="{% url 'et' %}" style="position: relative; left: 0;" class="{% if '/Examination/ExamCourseTable' == request.path %} active {% endif %} mobileHover">
+            <svg fill="#ffffff" width="29px" height="29px" viewBox="-672 -672 3264.00 3264.00" xmlns="http://www.w3.org/2000/svg" stroke="#ffffff"><g id="SVGRepo_bgCarrier" stroke-width="0"><path transform="translate(-672, -672), scale(204)" fill="#3282B8cc" d="M9.166.33a2.25 2.25 0 00-2.332 0l-5.25 3.182A2.25 2.25 0 00.5 5.436v5.128a2.25 2.25 0 001.084 1.924l5.25 3.182a2.25 2.25 0 002.332 0l5.25-3.182a2.25 2.25 0 001.084-1.924V5.436a2.25 2.25 0 00-1.084-1.924L9.166.33z" strokewidth="0"></path></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M1740 0c99.24 0 180 80.76 180 180v1560c0 99.24-80.76 180-180 180H180c-99.24 0-180-80.76-180-180V180C0 80.76 80.76 0 180 0h1560Zm-420 1200h480V720h-480v480Zm480 540v-420h-480v480h420c33 0 60-27 60-60ZM720 1200h480V720H720v480Zm0 600h480v-480H720v480Zm-600-600h480V720H120v480Zm480 600v-480H120v420c0 33 27 60 60 60h420Z" fill-rule="evenodd"></path> </g></svg>
+            <span>Progress/Statistic</span>
+        </a>
+        
+        {% else %}
+        <button class="minBar" data-value=1>
+            <svg style="fill:black; " xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="" class="bi bi-caret-right-fill" viewBox="0 0 16 16">
+            <path d="m12.14 8.753-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z"/>
+            </svg>
+        </button>
+        <a href="index.html" class="mobileHover">
+            <svg width="30px" height="30px" viewBox="-4.08 -4.08 32.16 32.16" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"><path transform="translate(-4.08, -4.08), scale(2.01)" fill="#3282B8cc" d="M9.166.33a2.25 2.25 0 00-2.332 0l-5.25 3.182A2.25 2.25 0 00.5 5.436v5.128a2.25 2.25 0 001.084 1.924l5.25 3.182a2.25 2.25 0 002.332 0l5.25-3.182a2.25 2.25 0 001.084-1.924V5.436a2.25 2.25 0 00-1.084-1.924L9.166.33z" strokewidth="0"></path></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M13 12C13 11.4477 13.4477 11 14 11H19C19.5523 11 20 11.4477 20 12V19C20 19.5523 19.5523 20 19 20H14C13.4477 20 13 19.5523 13 19V12Z" stroke="#ffffff" stroke-width="2" stroke-linecap="round"></path> <path d="M4 5C4 4.44772 4.44772 4 5 4H9C9.55228 4 10 4.44772 10 5V12C10 12.5523 9.55228 13 9 13H5C4.44772 13 4 12.5523 4 12V5Z" stroke="#ffffff" stroke-width="2" stroke-linecap="round"></path> <path d="M4 17C4 16.4477 4.44772 16 5 16H9C9.55228 16 10 16.4477 10 17V19C10 19.5523 9.55228 20 9 20H5C4.44772 20 4 19.5523 4 19V17Z" stroke="#ffffff" stroke-width="2" stroke-linecap="round"></path> <path d="M13 5C13 4.44772 13.4477 4 14 4H19C19.5523 4 20 4.44772 20 5V7C20 7.55228 19.5523 8 19 8H14C13.4477 8 13 7.55228 13 7V5Z" stroke="#ffffff" stroke-width="2" stroke-linecap="round"></path> </g></svg>
+            <span>Dashboard</span>
+        </a>
+        <!-- <div class="mobileHover"> -->
+            <button class="accordion
+            {% if 'ExamCourseTable' in request.path %}
+            active
+            {% endif %}
+            ">
+            
+                <div>
+                    <svg fill="#ffff" width="30px" height="30px" viewBox="-92.16 -92.16 696.32 696.32" xmlns="http://www.w3.org/2000/svg" stroke="#ffff"><g id="SVGRepo_bgCarrier" stroke-width="0"><path transform="translate(-92.16, -92.16), scale(43.52)" fill="#3282B8cc" d="M9.166.33a2.25 2.25 0 00-2.332 0l-5.25 3.182A2.25 2.25 0 00.5 5.436v5.128a2.25 2.25 0 001.084 1.924l5.25 3.182a2.25 2.25 0 002.332 0l5.25-3.182a2.25 2.25 0 001.084-1.924V5.436a2.25 2.25 0 00-1.084-1.924L9.166.33z" strokewidth="0"></path></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g id="Passed_exam"> <path d="M417.875,46H94.2126A13.2576,13.2576,0,0,0,81,59.2126V452.875A13.1835,13.1835,0,0,0,94.2126,466H417.875A13.1072,13.1072,0,0,0,431,452.875V59.2126A13.1814,13.1814,0,0,0,417.875,46ZM238.5,396.3493H151a13.125,13.125,0,0,1,0-26.25h87.5C255.7308,370.3674,255.7757,396.0737,238.5,396.3493Zm0-96.25H151a13.125,13.125,0,0,1,0-26.25h87.5C255.7308,274.1174,255.7757,299.8237,238.5,300.0993ZM273.85,194.75c-.2563,17.2351-25.9829,17.2672-26.25-.0011V126.7623a41.3874,41.3874,0,0,1,82.7747,0V194.75c-.282,17.2458-25.968,17.265-26.25-.0011V176.2866H273.85Zm96.4252,176.2241-43.0493,43.05a12.6979,12.6979,0,0,1-9.2755,3.8506,12.9869,12.9869,0,0,1-9.2755-3.8506l-18.2007-18.2c-11.918-12.3474,6.2036-30.6357,18.551-18.55l8.9252,8.9241,33.7738-33.7738C364.2043,340.5007,382.311,358.6587,370.2755,370.9741Zm0-96.25-43.0493,43.05a12.6979,12.6979,0,0,1-9.2755,3.8506,12.9869,12.9869,0,0,1-9.2755-3.8506l-18.2007-18.2c-11.918-12.3474,6.2036-30.6357,18.551-18.55l8.9252,8.9241,33.7738-33.7738C364.2043,244.2507,382.311,262.4087,370.2755,274.7241Z"></path> <path d="M304.125,126.7623a15.1374,15.1374,0,0,0-30.2747,0v23.2743H304.125Z"></path> </g> </g></svg>
+                    <span>
+                        Examination
+                    </span>
+                </div>
+                <div style="
+                {% if 'ExamCourseTable' in request.path %}
+                transform:rotate(45deg);
+                {% endif %}
+                font-size: x-large ; transform-origin: center;" class="plusToMult" 
+                >+</div>
+            </button>
+            <div class="panel"
+            {% if 'ExamCourseTable' in request.path %}
+            style = "opacity:1; visibility:visible;position:relative;"
+            {% endif %}>
+                <a href="{% url 'et' %}" style="position: relative; left: 0;" class="{% if '/Examination/ExamCourseTable' == request.path %} active {% endif %} mobileHover">
+                    <svg fill="#ffffff" width="29px" height="29px" viewBox="-672 -672 3264.00 3264.00" xmlns="http://www.w3.org/2000/svg" stroke="#ffffff"><g id="SVGRepo_bgCarrier" stroke-width="0"><path transform="translate(-672, -672), scale(204)" fill="#3282B8cc" d="M9.166.33a2.25 2.25 0 00-2.332 0l-5.25 3.182A2.25 2.25 0 00.5 5.436v5.128a2.25 2.25 0 001.084 1.924l5.25 3.182a2.25 2.25 0 002.332 0l5.25-3.182a2.25 2.25 0 001.084-1.924V5.436a2.25 2.25 0 00-1.084-1.924L9.166.33z" strokewidth="0"></path></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M1740 0c99.24 0 180 80.76 180 180v1560c0 99.24-80.76 180-180 180H180c-99.24 0-180-80.76-180-180V180C0 80.76 80.76 0 180 0h1560Zm-420 1200h480V720h-480v480Zm480 540v-420h-480v480h420c33 0 60-27 60-60ZM720 1200h480V720H720v480Zm0 600h480v-480H720v480Zm-600-600h480V720H120v480Zm480 600v-480H120v420c0 33 27 60 60 60h420Z" fill-rule="evenodd"></path> </g></svg>
+                    <span>ShowTable</span>
+                </a>
+                <a href="{% url 'examt' %}" style="position: relative; left: 0;" class="{% if '/Examination/NewExamCourseTable' == request.path %} active {% endif %} mobileHover">
+                    <svg width="29px" height="29px" viewBox="-5.04 -5.04 34.08 34.08" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#ffffff"><g id="SVGRepo_bgCarrier" stroke-width="0"><path transform="translate(-5.04, -5.04), scale(2.13)" fill="#3282B8cc" d="M9.166.33a2.25 2.25 0 00-2.332 0l-5.25 3.182A2.25 2.25 0 00.5 5.436v5.128a2.25 2.25 0 001.084 1.924l5.25 3.182a2.25 2.25 0 002.332 0l5.25-3.182a2.25 2.25 0 001.084-1.924V5.436a2.25 2.25 0 00-1.084-1.924L9.166.33z" strokewidth="0"></path></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M14.5 6.5H17.5M17.5 6.5H20.5M17.5 6.5V9.5M17.5 6.5V3.5" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round"></path> <path d="M2.55078 15.5C2.61472 14.8499 2.75923 14.4124 3.08582 14.0858C3.67161 13.5 4.61442 13.5 6.50004 13.5C8.38565 13.5 9.32846 13.5 9.91425 14.0858C10.5 14.6716 10.5 15.6144 10.5 17.5C10.5 19.3856 10.5 20.3284 9.91425 20.9142C9.32846 21.5 8.38565 21.5 6.50004 21.5C4.61442 21.5 3.67161 21.5 3.08582 20.9142C2.77645 20.6048 2.63047 20.1959 2.56158 19.6011" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round"></path> <path d="M2.5 6.5C2.5 4.61438 2.5 3.67157 3.08579 3.08579C3.67157 2.5 4.61438 2.5 6.5 2.5C8.38562 2.5 9.32843 2.5 9.91421 3.08579C10.5 3.67157 10.5 4.61438 10.5 6.5C10.5 8.38562 10.5 9.32843 9.91421 9.91421C9.32843 10.5 8.38562 10.5 6.5 10.5C4.61438 10.5 3.67157 10.5 3.08579 9.91421C2.5 9.32843 2.5 8.38562 2.5 6.5Z" stroke="#ffffff" stroke-width="1.5"></path> <path d="M13.5 17.5C13.5 15.6144 13.5 14.6716 14.0858 14.0858C14.6716 13.5 15.6144 13.5 17.5 13.5C19.3856 13.5 20.3284 13.5 20.9142 14.0858C21.5 14.6716 21.5 15.6144 21.5 17.5C21.5 19.3856 21.5 20.3284 20.9142 20.9142C20.3284 21.5 19.3856 21.5 17.5 21.5C15.6144 21.5 14.6716 21.5 14.0858 20.9142C13.5 20.3284 13.5 19.3856 13.5 17.5Z" stroke="#ffffff" stroke-width="1.5"></path> </g></svg>
+                    <span>AddTable</span>
+                </a>
+            </div>
+        <!-- </div> -->
+        <div class="mobileHover">
+            <button class="accordion
+            {% if 'Student' in request.path %}
+            active
+            {% endif %}
+            ">
+                <div>
+                    <svg viewBox="-3.12 -3.12 30.24 30.24" width="30px" height="30px" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#ffffff"><g id="SVGRepo_bgCarrier" stroke-width="0"><path transform="translate(-3.12, -3.12), scale(1.8900000000000001)" fill="#3282B8cc" d="M9.166.33a2.25 2.25 0 00-2.332 0l-5.25 3.182A2.25 2.25 0 00.5 5.436v5.128a2.25 2.25 0 001.084 1.924l5.25 3.182a2.25 2.25 0 002.332 0l5.25-3.182a2.25 2.25 0 001.084-1.924V5.436a2.25 2.25 0 00-1.084-1.924L9.166.33z" strokewidth="0"></path></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <circle cx="9" cy="9" r="2" stroke="#ffffff" stroke-width="1.5"></circle> <path d="M13 15C13 16.1046 13 17 9 17C5 17 5 16.1046 5 15C5 13.8954 6.79086 13 9 13C11.2091 13 13 13.8954 13 15Z" stroke="#ffffff" stroke-width="1.5"></path> <path d="M22 12C22 15.7712 22 17.6569 20.8284 18.8284C19.6569 20 17.7712 20 14 20H10C6.22876 20 4.34315 20 3.17157 18.8284C2 17.6569 2 15.7712 2 12C2 8.22876 2 6.34315 3.17157 5.17157C4.34315 4 6.22876 4 10 4H14C17.7712 4 19.6569 4 20.8284 5.17157C21.298 5.64118 21.5794 6.2255 21.748 7" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round"></path> <path d="M19 12H15" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round"></path> <path d="M19 9H14" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round"></path> <path d="M19 15H16" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round"></path> </g></svg>
+                    <span>
+                        Students
+                    </span>
+                </div>
+                <div style="
+                {% if 'Student' in request.path %}
+                transform:rotate(45deg);
+                {% endif %}
+                font-size: x-large ; transform-origin: center ;width:fit-content; height: min-content;" class="plusToMult">+</div>
+            </button>
+            <div class="panel"  
+            {% if 'Student' in request.path %}
+            style = 'opacity:1; visibility:visible;position:relative;'
+            {% endif %}
+            >
+                <a href="{% url 'ss' %}" style="position: relative; left: 0;" class="mobileHover {% if '/Student/ShowStudent' == request.path %} active {% endif %}">
+                    <svg fill="#ffffff" width="29px" height="29px" viewBox="-672 -672 3264.00 3264.00" xmlns="http://www.w3.org/2000/svg" stroke="#ffffff"><g id="SVGRepo_bgCarrier" stroke-width="0"><path transform="translate(-672, -672), scale(204)" fill="#3282B8cc" d="M9.166.33a2.25 2.25 0 00-2.332 0l-5.25 3.182A2.25 2.25 0 00.5 5.436v5.128a2.25 2.25 0 001.084 1.924l5.25 3.182a2.25 2.25 0 002.332 0l5.25-3.182a2.25 2.25 0 001.084-1.924V5.436a2.25 2.25 0 00-1.084-1.924L9.166.33z" strokewidth="0"></path></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M1740 0c99.24 0 180 80.76 180 180v1560c0 99.24-80.76 180-180 180H180c-99.24 0-180-80.76-180-180V180C0 80.76 80.76 0 180 0h1560Zm-420 1200h480V720h-480v480Zm480 540v-420h-480v480h420c33 0 60-27 60-60ZM720 1200h480V720H720v480Zm0 600h480v-480H720v480Zm-600-600h480V720H120v480Zm480 600v-480H120v420c0 33 27 60 60 60h420Z" fill-rule="evenodd"></path> </g></svg>
+                    <span>Show/Statistic</span>
+                </a>
+                <a href="{% url 'as' %}" style="position: relative; left: 0;" class="mobileHover {% if '/Student/AddStudent' == request.path %} active {% endif %}">
+                    <svg viewBox="-4.8 -4.8 25.60 25.60" width="29px" height="29px" xmlns="http://www.w3.org/2000/svg" fill="#ffffff" class="bi bi-person-plus-fill" stroke="#ffffff"><g id="SVGRepo_bgCarrier" stroke-width="0"><path transform="translate(-4.8, -4.8), scale(1.6)" fill="#3282B8cc" d="M9.166.33a2.25 2.25 0 00-2.332 0l-5.25 3.182A2.25 2.25 0 00.5 5.436v5.128a2.25 2.25 0 001.084 1.924l5.25 3.182a2.25 2.25 0 002.332 0l5.25-3.182a2.25 2.25 0 001.084-1.924V5.436a2.25 2.25 0 00-1.084-1.924L9.166.33z" strokewidth="0"></path></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M1 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"></path> <path fill-rule="evenodd" d="M13.5 5a.5.5 0 0 1 .5.5V7h1.5a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0V8h-1.5a.5.5 0 0 1 0-1H13V5.5a.5.5 0 0 1 .5-.5z"></path> </g></svg>
+                    <span>Add/Students</span>
+                </a>
+            </div>
+        </div>
+        <div class="mobileHover">
+            <button class="accordion
+            {% if 'courses' in request.path %}
+            active
+            {% endif %}
+            ">
+                <div>
+                    <svg width="30px" height="30px" viewBox="-4.56 -4.56 33.12 33.12" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#ffffff"><g id="SVGRepo_bgCarrier" stroke-width="0"><path transform="translate(-4.56, -4.56), scale(2.07)" fill="#3282B8cc" d="M9.166.33a2.25 2.25 0 00-2.332 0l-5.25 3.182A2.25 2.25 0 00.5 5.436v5.128a2.25 2.25 0 001.084 1.924l5.25 3.182a2.25 2.25 0 002.332 0l5.25-3.182a2.25 2.25 0 001.084-1.924V5.436a2.25 2.25 0 00-1.084-1.924L9.166.33z" strokewidth="0"></path></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M4 19V6.2C4 5.0799 4 4.51984 4.21799 4.09202C4.40973 3.71569 4.71569 3.40973 5.09202 3.21799C5.51984 3 6.0799 3 7.2 3H16.8C17.9201 3 18.4802 3 18.908 3.21799C19.2843 3.40973 19.5903 3.71569 19.782 4.09202C20 4.51984 20 5.0799 20 6.2V17H6C4.89543 17 4 17.8954 4 19ZM4 19C4 20.1046 4.89543 21 6 21H20M9 7H15M9 11H15M19 17V21" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>
+                    <span>
+                        Course
+                    </span>
+                </div>
+                <div style="
+                {% if 'courses' in request.path %}
+                transform:rotate(45deg);
+                {% endif %}
+                font-size: x-large ; transform-origin: center ;width:fit-content; height: min-content;" class="plusToMult">+</div>
+            </button>
+            <div class="panel"  
+            {% if 'courses' in request.path %}
+            style = 'opacity:1; visibility:visible;position:relative;'
+            {% endif %}
+            >
+                <a href="{% url 'statistic' %}" style="position: relative; left: 0;" class="mobileHover {% if '/courses/statistic' == request.path %} active {% endif %}">
+                    <svg width="29px" height="29px" viewBox="-6.48 -6.48 36.96 36.96" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#0"><g id="SVGRepo_bgCarrier" stroke-width="0"><path transform="translate(-6.48, -6.48), scale(2.31)" fill="#3282B8cc" d="M9.166.33a2.25 2.25 0 00-2.332 0l-5.25 3.182A2.25 2.25 0 00.5 5.436v5.128a2.25 2.25 0 001.084 1.924l5.25 3.182a2.25 2.25 0 002.332 0l5.25-3.182a2.25 2.25 0 001.084-1.924V5.436a2.25 2.25 0 00-1.084-1.924L9.166.33z" strokewidth="0"></path></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M21 21H6.2C5.07989 21 4.51984 21 4.09202 20.782C3.71569 20.5903 3.40973 20.2843 3.21799 19.908C3 19.4802 3 18.9201 3 17.8V3M7 15L12 9L16 13L21 7" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>
+                    <span>Statistic</span>
+                </a>
+                <a href="{% url 'addCourse' %}" style="position: relative; left: 0;" class="mobileHover {% if '/courses/addCourse' == request.path %} active {% endif %}">
+                    <svg width="29px" height="29px" viewBox="-3.84 -3.84 31.68 31.68" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"><path transform="translate(-3.84, -3.84), scale(1.98)" fill="#3282B8cc" d="M9.166.33a2.25 2.25 0 00-2.332 0l-5.25 3.182A2.25 2.25 0 00.5 5.436v5.128a2.25 2.25 0 001.084 1.924l5.25 3.182a2.25 2.25 0 002.332 0l5.25-3.182a2.25 2.25 0 001.084-1.924V5.436a2.25 2.25 0 00-1.084-1.924L9.166.33z" strokewidth="0"></path></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M17 19H21M19 17V21M13 3H8.2C7.0799 3 6.51984 3 6.09202 3.21799C5.71569 3.40973 5.40973 3.71569 5.21799 4.09202C5 4.51984 5 5.0799 5 6.2V17.8C5 18.9201 5 19.4802 5.21799 19.908C5.40973 20.2843 5.71569 20.5903 6.09202 20.782C6.51984 21 7.0799 21 8.2 21H12M13 3L19 9M13 3V7.4C13 7.96005 13 8.24008 13.109 8.45399C13.2049 8.64215 13.3578 8.79513 13.546 8.89101C13.7599 9 14.0399 9 14.6 9H19M19 9V12M9 17H12M9 13H15M9 9H10" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>
+                    <span>Add/Course</span>
+                    
+                </a>
+                <a href="{% url 'addGrade' %}" style="position: relative; left: 0;" class="mobileHover {% if '/courses/addGrade' == request.path %} active {% endif %}">
+                    <svg width="29px" height="29px" viewBox="-163.84 -163.84 1351.68 1351.68" class="icon" version="1.1" xmlns="http://www.w3.org/2000/svg" fill="#000000"><g id="SVGRepo_bgCarrier" stroke-width="0"><path transform="translate(-163.84, -163.84), scale(84.48)" fill="#3282B8cc" d="M9.166.33a2.25 2.25 0 00-2.332 0l-5.25 3.182A2.25 2.25 0 00.5 5.436v5.128a2.25 2.25 0 001.084 1.924l5.25 3.182a2.25 2.25 0 002.332 0l5.25-3.182a2.25 2.25 0 001.084-1.924V5.436a2.25 2.25 0 00-1.084-1.924L9.166.33z" strokewidth="0"></path></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"><path d="M905.92 237.76a32 32 0 0 0-52.48 36.48A416 416 0 1 1 96 512a418.56 418.56 0 0 1 297.28-398.72 32 32 0 1 0-18.24-61.44A480 480 0 1 0 992 512a477.12 477.12 0 0 0-86.08-274.24z" fill="#ffffff"></path><path d="M630.72 113.28A413.76 413.76 0 0 1 768 185.28a32 32 0 0 0 39.68-50.24 476.8 476.8 0 0 0-160-83.2 32 32 0 0 0-18.24 61.44zM489.28 86.72a36.8 36.8 0 0 0 10.56 6.72 30.08 30.08 0 0 0 24.32 0 37.12 37.12 0 0 0 10.56-6.72A32 32 0 0 0 544 64a33.6 33.6 0 0 0-9.28-22.72A32 32 0 0 0 505.6 32a20.8 20.8 0 0 0-5.76 1.92 23.68 23.68 0 0 0-5.76 2.88l-4.8 3.84a32 32 0 0 0-6.72 10.56A32 32 0 0 0 480 64a32 32 0 0 0 2.56 12.16 37.12 37.12 0 0 0 6.72 10.56zM355.84 313.6a36.8 36.8 0 0 0-13.12 18.56l-107.52 312.96a37.44 37.44 0 0 0 2.56 35.52 32 32 0 0 0 24.96 10.56 27.84 27.84 0 0 0 17.28-5.76 43.84 43.84 0 0 0 10.56-13.44 100.16 100.16 0 0 0 7.04-15.36l4.8-12.8 17.6-49.92h118.72l24.96 69.76a45.76 45.76 0 0 0 10.88 19.2 28.8 28.8 0 0 0 20.48 8.32h2.24a27.52 27.52 0 0 0 27.84-15.68 41.28 41.28 0 0 0 0-29.44l-107.84-313.6a36.8 36.8 0 0 0-13.44-19.2 44.16 44.16 0 0 0-48 0.32z m24.32 96l41.6 125.44h-83.2zM594.88 544a66.56 66.56 0 0 0 25.6 4.16h62.4v78.72a29.12 29.12 0 0 0 32 32 26.24 26.24 0 0 0 27.2-16.32 73.28 73.28 0 0 0 4.16-26.24v-66.88h73.6a27.84 27.84 0 0 0 29.44-32 26.56 26.56 0 0 0-16-27.2 64 64 0 0 0-23.04-4.16h-64v-75.84a28.16 28.16 0 0 0-32-30.08 26.56 26.56 0 0 0-27.2 15.68 64 64 0 0 0-4.16 24v66.88h-62.72a69.44 69.44 0 0 0-25.6 4.16 26.56 26.56 0 0 0-15.68 27.2 25.92 25.92 0 0 0 16 25.92z" fill="#ffffff"></path></g></svg>
+                    <span>Add/Grades</span>
+                </a>
+            </div>
+        </div>
+        <!-- profile button -->
+        <hr style="height: 120px;background-color: transparent;">
+        <span class="mobileHover">
+            <a  class=" profile " href="#"> 
+                <!-- <img src="{% static 'image/Al-Baath_University_logo.png' %}" width="30" alt=""> -->
+                <span style="text-transform: capitalize;">{{request.user.username}}</span>
+            </a>
+        </span>
+        {% endif %}
+    </div>
+</div>
+                <!-- right body-->
+                <div class="content">
+                    
+                    {% block con %}
+                        
+                    {% endblock con %}
+                </div>
+            </div>
+        </main>
+        {% include 'msgDjango.html' %}
+        {% include 'msgSystem.html' with localcontent="Actual content" %}
+        {% else %}
+        redirect system
+        <div class="redirect" >
+            <span>
+            You will be redirect in 5 sec Your not allowed to Enter System Please 
+            </span>
+            <a href="{% url 'login' %}" class="redirectLink">Login</a>
+        </div>
+        <script>
+            window.onload = function(){setTimeout(function(){document.querySelector('.redirectLink').click();},5000)}
+        </script>
+        {% endif %} -->
+        <!-- msg system
+    </body>
+</html>

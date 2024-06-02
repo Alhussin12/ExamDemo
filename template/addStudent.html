@@ -1,0 +1,75 @@
+{% extends 'main.html' %}
+{% load static %}
+
+{% block title %}
+StudentADD
+{% endblock %}
+
+{% block style %}
+<link rel="stylesheet" href="{% static 'css/students.css' %}">
+{% endblock %}
+
+{% block scripts %}
+<script src="{% static 'js/json.js' %}" defer></script>
+{% endblock %}
+
+{% block con %}
+
+<div class="addStudent">
+    <h4>Add Manually</h4>
+    <div class="addManuallyStudent">
+        <form action="" >
+            <div>
+                <div class="grp1">
+                    <label for="SN">SerialNumber:</label>
+                    <input type="text" name="SN" id="SN">
+                    <label for="FirstName">FirstName:</label>
+                    <input type="text" name="FirstName" id="FirstName">
+               </div>
+               <div class="grp2">
+                    <label for="LastName">LastName:</label>
+                    <input type="text" name="LastName" id="LastName">
+                    <label for="year">Year:</label>
+                    <select name="year" id="year" >
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                    </select>
+                </div>
+            </div>
+            <button class="Stnbutton" type="button" id="Stnbutton1">
+                Add Student
+            </button>
+        </form>
+    </div>
+    <div class="addFileStudent">
+        <h4> Add File</h4>
+        <div>
+            <form action="" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <input type="file"  name="file" id="studentFile">
+                <select name="year" id="year" style="flex:1 ;" >
+                    <option value="0">0</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                </select>
+                <button type="submit" class="Stnbutton" id="Stnbutton2">Upload</button>
+            </form>
+        </div>
+        <ul>
+            <li>Note :: Please Enter .CSV or Xls .File</li>
+            <li>Note :: the Fileds in Csv or Xls File Most be Named as(id,firstName,lastName) </li>
+            <li>Note :: the Fileds Order in Csv or Xls File Not Important </li>
+            <li>Note :: If the Id Values are New they will added</li>
+            <li>Note :: If the Id Values are Exsist they will Updated</li>
+            <li>Note :: To Update or Remove a Spesefic Student Go To <a href="{% url 'ss' %}" style="color: blue;">Show Student</a></li>
+        </ul>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,130 @@
+{% extends 'main.html' %}
+{% load static %}
+{% block style %}
+<style>
+    .row-1{
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+    .row-1>div{
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+        margin-block:5px;
+        min-width: 300px;
+
+    }
+    .row-2{
+        margin-bottom: 5px;
+        align-items: center;
+    }
+    .row-2>div>button,.row-2>div>input{
+        background-color: var(--bs-one);
+        color: white;
+        border: none;
+        border-radius: 3px;
+    }
+    .row-2>div>button{
+        padding-block: 2.7px;
+        margin-bottom: 0.3px;
+        transition: background-color 0.3s;
+
+    }
+    .row-2>div>button:hover{
+        background-color: var(--bs-border);
+        transition: background-color 0.3s;
+    }
+    h4{
+        border-bottom: 3px solid var(--bs-one);
+        padding: 5px;
+        width: max-content;
+    }
+</style>
+{% endblock %}
+
+{% block scripts %}
+
+{% endblock %}
+
+
+{% block con %}
+<div>
+    <h4>Add Grades</h4>
+<form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+    <div class="row-1">
+        <div>
+            <label for="Semineter">Semineter:</label>
+            <select name="Semineter" id="Semineter">
+                {% for i in obj %}
+                    <option value="{{i.id}}" name="{{i.id}}">{{ i.start_date.year}} ({{ i.Semineter }})</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div>
+            <label for="year">Year:</label>
+            <select name="year" id="year">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+            </select>
+        </div>
+
+        <div>
+            <label for="Course">Course:</label>
+            <select name="Course" id="Course">
+               
+            </select>
+        </div>
+    </div>
+
+    <div class="row-1 row-2">
+        <div >
+            <label for="file">File:</label>
+            <input type="file" name="file">
+       </div>
+       <div>
+        <label for="">Btn:</label>
+        <button type="submit">Upload</button>
+       </div>
+    </div>
+</div>
+</form>
+<ul>
+    <li>Note :: Please Enter .CSV or .Xls File</li>
+    <li>Note :: the Fileds in Csv or Xls File Most be Named as(id,grad) </li>
+    <li>Note :: the Fileds Order in Csv or Xls File Not Important </li>
+    <li>Note ::If the values of the id are new, a new students will be added </li>
+    <li>Note :: If the Values previously existed the student's values ​​will be Updated or Remain itself</li>
+    <li>Note :: To Update or Remove a specific Course Go To <a href="{% url 'addCourse' %}" style="color: blue;">add Course</a></li>
+</ul>
+
+<script>
+    let Course =document.getElementById('Course')
+    let year = document.getElementById('year')
+    window.onload=
+    year.onchange=function(e){
+        let x =1
+        if(e.target.id == 'year')
+            x=e.target.value
+        fetch('/courses/yearCourseJson/',{
+            body:JSON.stringify({
+            year:x,
+            }),method:'POST',})
+            .then(res => res.json()).then(data=>{
+                let Course =document.getElementById('Course')
+                Course.innerHTML=''
+                data.s.forEach((e)=>{
+                    Course.innerHTML=Course.innerHTML+`
+                    <option value="${e.id}">${e.course}</option>
+                    `
+                }) 
+            })
+    }
+
+</script>
+{% endblock %}

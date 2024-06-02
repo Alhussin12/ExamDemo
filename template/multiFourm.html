@@ -1,0 +1,81 @@
+{% extends 'main.html' %}
+{% load static %}
+{% block style %}
+    <!-- <link rel="stylesheet" href="{% static 'css/test.css' %}"> -->
+{% endblock %}
+{% block scripts %}
+    <!-- <script src="{% static 'js/test.js' %}" defer></script> -->
+{% endblock %}
+
+
+
+{% block con %}
+
+<div class="multi-form-countener">
+    <form class="multi-form" method="get">
+        <!-- {% csrf_token %} -->
+        <h2 class="my-text-center">Examination Table</h2>
+        <!-- progress bar -->
+        <div class="prog-bar">
+            <div id="progress" class="progress"></div>
+            <div class="prog-step prog-step-active" data-title="Intro"></div>
+            <div class="prog-step" data-title="Semester"></div>
+            <div class="prog-step" data-title="Date"></div>
+        </div>
+        <!-- step 1 -->
+        <div class="form-step step-1 form-step-active">
+            <div class="" >
+                <button type="button" class="step-btn  step-next-btn py-2">
+                    Add New Examination Table
+                </button>
+            </div>
+        </div>
+        <div class="form-step ">
+            <div class="input-group">
+                <label for="Semester">Semester</label>
+                <select class="input-group py-1 my-1 " style="border-radius: 3px;" name="Semester" id="">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                </select>
+            </div>
+            <div class="btn-group">
+                <button type="button" class="step-btn step-perv-btn">
+                    Pervese
+                </button>
+                <button type="button" class="step-btn step-next-btn">
+                    Next
+                </button>
+            </div>
+        </div>
+        <div class="form-step ">
+            <div class="input-group">
+                <label for="datefrom">datefrom</label>
+                <input type="date" name="datefrom" id="datefrom">
+            </div>
+            <div class="input-group">
+                <label for="dateto">dateto</label>
+                <input type="date" name="dateto" id="dateto">
+            </div>
+            <div class="btn-group">
+                <button type="button" class="step-btn step-perv-btn">
+                    Pervese
+                </button>
+                <button type="submit" name="multform" class="step-btn ">
+                    Submit
+                </button>
+            </div>
+        </div>
+        
+    </form>
+    <!-- <div style="display: flex; align-items: center; justify-content: center;  flex-direction: column; color:black ">
+        <h4 class="text-center" style="max-width:400px ;">There is an Examination table in progress go to progress table</h4>
+        <a href="{% url 'et' %}" class="" style="background-color: var(--bs-one); padding:3px ; border-radius:5px; border:2px solid white">
+            Progress table
+        </a>
+    </div> -->
+</div>
+{% endblock %}
+
+
+
