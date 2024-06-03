@@ -1,0 +1,115 @@
+
+*,*::before,*::after{
+    box-sizing: border-box;
+    
+}
+body,html{
+    font-family:'Poppins' , bolder;
+ font-weight: 500;
+    margin: 0;
+    padding: 0;
+    zoom: 110%;
+   /* background-color: black!important;*/
+    transition: background-color 1s;
+}
+body{
+    backdrop-filter: blur(5px);
+    background: linear-gradient(rgba(255, 255, 255, 0.5),rgba(255, 255, 255, 0.5)) , url('/static/image/pngwing.com.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+a{
+    color: white;
+}
+a:focus,a:hover{
+    color:black;
+}
+.loginContainer{
+    opacity:1; 
+    position: relative; 
+    max-width: 320px;
+    margin-inline:10px ;
+    margin-block: 50px;
+    backdrop-filter: blur(10px);
+    background-color:#2600ff8e;  
+    padding-top: 60px; 
+    padding-bottom: 5px;
+    border-radius: 5px;
+    text-align: center;
+    box-shadow: 0px 0px 60px 10px #5584dbee;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+div.loginContainer>div{
+    padding: 10 0;
+    color: rgba(0, 0, 0, 0.637);
+    font-weight: 400;
+    font-family: Arial, Helvetica, sans-serif;
+    opacity: 1;
+
+    
+}
+div.subloginContainer> input{
+    /* background-color: #dec0f1; */
+    width: 88%;
+    height: 40px;
+    border: none;
+    border-radius: 5px;
+    outline-color: transparent;
+    margin-top: 5px;
+    transition: all .3s ;
+    
+}
+div.subloginContainer> input:hover{
+    /* background-color: #5584dbee; */
+    box-shadow: 0 0 10px 1px white;
+
+    transition: all .3s ;
+}
+div.subloginContainer> input::-webkit-input-placeholder {
+    text-align: center;
+  }
+  
+  div.subloginContainer> input :-moz-placeholder {
+    text-align: center;
+  }
+
+  div.subloginContainer1{
+    width: 100%;
+    margin-top: 8px;
+  }
+  div.subloginContainer1 button{
+    width: 108px;
+    height: 35px;
+    background-color: #457bdd;
+    border-radius: 5px;
+
+    border: 1px solid white;
+
+  }
+  div.subloginContainer1> button:hover{
+    background-color: #e4d3ee;
+    box-shadow: 0 0 10px 1px #5584dbee;
+    cursor: pointer;
+    transition: all .3s ;
+}
+.icon{
+    width: 100px;
+    height: 100px; 
+    outline: 2px solid 
+    rgba(255, 255, 255, 0.5);
+    border-radius: 90px; position:
+    absolute;left: 50%;top: 0px; 
+    transform: translate(-50%,-50%);
+}
+
+@media (hover:none){
+    body{
+        zoom: 100%;
+    }
+}

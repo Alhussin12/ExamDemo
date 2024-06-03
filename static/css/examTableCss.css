@@ -1,0 +1,143 @@
+@import url(style.css);
+
+/* Global For Examination Tables */
+.examinationTables{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+.examinationTables>h4{
+    border-bottom: 3px solid var(--bs-prim);
+    padding: 5px;
+    width: max-content;
+    margin-bottom: 3px;
+    
+}
+.tableOfDone{
+    overflow: scroll;
+}
+/* 
+@media screen and (width<900px) {
+    @media (hover:none){
+        .examinationTables>div.tableInProgress
+        ,div.tableOfDone{
+            margin-bottom: auto;
+            overflow: scroll;
+}}} */
+.examinationTables>div>table{
+    border-collapse: collapse;
+    width: 100%;
+}
+.examinationTables>div>table tr th,
+.examinationTables>div>table tr td
+ {
+    border: 2px solid var(--bs-one);
+    padding-left: 5px;
+    font-size: small;
+    
+}
+.examinationTables>div>table tr th{
+    background-color: var(--bs-border);
+    font: bold;
+}
+.tableInProgress::-webkit-scrollbar,
+.tableOfDone::-webkit-scrollbar{
+    background-color: transparent;
+    width: 5px;
+    height: 5px;
+}
+.tableOfDone::-webkit-scrollbar-thumb,
+.tableInProgress::-webkit-scrollbar-thumb{
+    background-color:  var(--bs-border);
+    border-radius: 90px;
+}
+.modifyTableBtn{
+    display: flex; 
+    gap:2px; 
+    justify-content: center;
+}
+.modifyTableBtn>button{
+    background-color: var(--bs-one);
+    border: none;
+    border-radius: 3px;
+    transition:background-color .3s ;
+    padding: 5px;
+}
+
+.modifyTableBtn>button:hover{
+    background-color: var(--bs-border);
+    transition:background-color .3s ;
+}
+/* END global */
+
+/* LOCAL */
+    /* For Table 1 */
+    .tableInProgress{
+        height: fit-content;
+    }
+    .tableInProgress>.noTableInProg{
+        background-color: var(--bs-border);
+        border-radius: 3px;
+        padding: 5px;
+    }
+    .tableInProgress>
+    .noTableInProg>
+    button{
+        background-color: transparent;
+        border: transparent;
+    }
+    .tableTitle>form{
+        margin: 10px 5px;
+        display: flex;
+        height: 35px;
+        
+    }
+    .tableTitle>form>input{
+        max-width: 200px;
+    }
+    /* End forTable 1 */
+
+    /* For Table 2 */
+
+    /* End forTable 2 */
+
+    /* Button System*/
+    .ButtonSystemForExaminationTable{
+        overflow: hidden;
+        display: flex;
+        justify-content: space-between;
+    }
+    /* .groupTableBtn{
+        margin-right: 5px;
+    } */
+    .groupTableBtn>button{
+        background-color: var(--bs-one);
+        color: white;
+        border-radius:3px;
+        font-size: 14px;
+        border-color: transparent;
+        transition: all .3s;
+    }
+    .groupTableBtn>button:hover{
+        background-color:var(--bs-border) ;
+        transition: background-color .3s;
+    }
+    /* END button */
+
+/* END local */
+/* Mobile Resbonsive */
+@media (hover:none){
+    .examinationTables>
+    div.tableOfDone,
+    .examinationTables>
+    div.tableInProgress{
+        margin-bottom: 0;
+    }
+    .ButtonSystemForExaminationTable{
+        margin: 5px 0;
+    }
+    /* @media screen and (orientation:landscape) { 
+    .content{
+        height: fit-content;
+    }}  */
+}
